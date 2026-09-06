@@ -63,6 +63,9 @@ still a real on-chain transaction.
 
 ## Quick start
 
+Full instructions, including API keys and the Base testnet wallet, are in
+**[SETUP.md](SETUP.md)**. The short version:
+
 ```bash
 python3 -m venv .venv && ./.venv/bin/pip install -r requirements.txt
 cp .env.example .env          # optional: add keys

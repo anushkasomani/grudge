@@ -7,3 +7,6 @@ memory_store/*.db-wal
 memory_store/*.db-shm
 .pytest_cache/
 node_modules/
+
+# Demo output — regenerate locally with `compare --export`
+web/runs/
