@@ -1,0 +1,329 @@
+{
+  "vendorId": "vercel",
+  "vendor": "Vercel",
+  "listPrice": 24000.0,
+  "generatedAt": "2026-09-06T17:28:43+00:00",
+  "engine": {
+    "buyer": "scripted:scripted-v1",
+    "vendor": "scripted:scripted-v1"
+  },
+  "withMemory": {
+    "settled": 20532.88,
+    "agreed": true,
+    "rounds": 6,
+    "openingAsk": 18991.61,
+    "openedWith": "Hard budget ceiling",
+    "banned": [],
+    "holdFirm": false,
+    "floorEstimate": 21581.37,
+    "rationale": [
+      "They ignore the first 4 round(s), so opening with low-value levers and saving Seat/volume expansion, Downgrade / descope, Prepay / annual upfront for when they actually start listening.",
+      "Leading with Seat/volume expansion: moved them 6.0% on average across 1 attempt(s).",
+      "Known floor ~$21,581 (confidence 65%); anchoring at $18,992 and probing below it - they accepted that number once, so the real floor sits at or under it.",
+      "Walk-away held at $21,581 - last cycle's price. Anything above that is a regression, anything below is progress.",
+      "They typically don't move until round 4; not overbidding early."
+    ],
+    "threats": 0,
+    "turns": [
+      {
+        "speaker": "buyer",
+        "round": 1,
+        "message": "Our board-approved budget ceiling is fixed and we cannot exceed it this year. We can commit at $18,992 for the year.",
+        "offer": 18991.61,
+        "tactic": "Hard budget ceiling",
+        "threat": false,
+        "reasoning": "Playing budget_freeze; plan targets $20,718."
+      },
+      {
+        "speaker": "vendor",
+        "round": 1,
+        "message": "I hear you, but that argument doesn't change my costs. $23,520 stands.",
+        "offer": 23520.0,
+        "tactic": null,
+        "threat": false,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 2,
+        "message": "We're willing to sign a three-year term instead of annual if the rate reflects that commitment. We can commit at $19,423 for the year.",
+        "offer": 19423.24,
+        "tactic": "Multi-year commitment",
+        "threat": false,
+        "reasoning": "Playing multi_year_commit; plan targets $20,718."
+      },
+      {
+        "speaker": "vendor",
+        "round": 2,
+        "message": "I hear you, but that argument doesn't change my costs. $23,520 stands.",
+        "offer": 23520.0,
+        "tactic": null,
+        "threat": false,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 3,
+        "message": "We have a competitor quote from another vendor coming in materially below this. We can commit at $19,855 for the year.",
+        "offer": 19854.86,
+        "tactic": "Competitor quote leverage",
+        "threat": false,
+        "reasoning": "Playing competitor_quote; plan targets $20,718."
+      },
+      {
+        "speaker": "vendor",
+        "round": 3,
+        "message": "I hear you, but that argument doesn't change my costs. $23,520 stands.",
+        "offer": 23520.0,
+        "tactic": null,
+        "threat": false,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 4,
+        "message": "We'll do a public case study, logo rights and a reference call in exchange for a better rate. We can commit at $20,286 for the year.",
+        "offer": 20286.49,
+        "tactic": "Case study / reference trade",
+        "threat": false,
+        "reasoning": "Playing case_study_trade; plan targets $20,718."
+      },
+      {
+        "speaker": "vendor",
+        "round": 4,
+        "message": "Given the commitment you're describing, I can get to $22,109. That took real work with deal desk.",
+        "offer": 22108.8,
+        "tactic": null,
+        "threat": false,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 5,
+        "message": "We can expand seats and volume next year if you improve the per-unit rate now. We can commit at $20,718 for the year.",
+        "offer": 20718.12,
+        "tactic": "Seat/volume expansion",
+        "threat": false,
+        "reasoning": "Playing volume_tier; plan targets $20,718."
+      },
+      {
+        "speaker": "vendor",
+        "round": 5,
+        "message": "Given the commitment you're describing, I can get to $20,782. That took real work with deal desk.",
+        "offer": 20782.27,
+        "tactic": null,
+        "threat": false,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 6,
+        "message": "Otherwise we'll downgrade to the cheaper tier and cut modules we barely use. We can commit at $20,718 for the year.",
+        "offer": 20718.12,
+        "tactic": "Downgrade / descope",
+        "threat": false,
+        "reasoning": "Playing downgrade_threat; plan targets $20,718."
+      },
+      {
+        "speaker": "vendor",
+        "round": 6,
+        "message": "I can shade it slightly to $20,533, but that's most of what I have.",
+        "offer": 20532.88,
+        "tactic": null,
+        "threat": false,
+        "reasoning": null
+      }
+    ]
+  },
+  "withoutMemory": {
+    "settled": 21581.37,
+    "agreed": true,
+    "rounds": 6,
+    "openingAsk": 18000.0,
+    "openedWith": "Competitor quote leverage",
+    "banned": [],
+    "holdFirm": false,
+    "floorEstimate": null,
+    "rationale": [
+      "No prior history with this vendor in memory - negotiating blind.",
+      "Anchoring at a generic 25% off list.",
+      "Trying tactics in default order; no idea which ones this vendor responds to.",
+      "Any walkaway threat will be treated as credible."
+    ],
+    "threats": 0,
+    "turns": [
+      {
+        "speaker": "buyer",
+        "round": 1,
+        "message": "We have a competitor quote from another vendor coming in materially below this. We can commit at $18,000 for the year.",
+        "offer": 18000.0,
+        "tactic": "Competitor quote leverage",
+        "threat": false,
+        "reasoning": "Playing competitor_quote; plan targets $21,120."
+      },
+      {
+        "speaker": "vendor",
+        "round": 1,
+        "message": "I hear you, but that argument doesn't change my costs. $23,520 stands.",
+        "offer": 23520.0,
+        "tactic": null,
+        "threat": false,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 2,
+        "message": "Our board-approved budget ceiling is fixed and we cannot exceed it this year. We can commit at $18,780 for the year.",
+        "offer": 18780.0,
+        "tactic": "Hard budget ceiling",
+        "threat": false,
+        "reasoning": "Playing budget_freeze; plan targets $21,120."
+      },
+      {
+        "speaker": "vendor",
+        "round": 2,
+        "message": "I hear you, but that argument doesn't change my costs. $23,520 stands.",
+        "offer": 23520.0,
+        "tactic": null,
+        "threat": false,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 3,
+        "message": "We're willing to sign a three-year term instead of annual if the rate reflects that commitment. We can commit at $19,560 for the year.",
+        "offer": 19560.0,
+        "tactic": "Multi-year commitment",
+        "threat": false,
+        "reasoning": "Playing multi_year_commit; plan targets $21,120."
+      },
+      {
+        "speaker": "vendor",
+        "round": 3,
+        "message": "I hear you, but that argument doesn't change my costs. $23,520 stands.",
+        "offer": 23520.0,
+        "tactic": null,
+        "threat": false,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 4,
+        "message": "We'll prepay the full annual amount upfront rather than quarterly, which helps your cash flow. We can commit at $20,340 for the year.",
+        "offer": 20340.0,
+        "tactic": "Prepay / annual upfront",
+        "threat": false,
+        "reasoning": "Playing payment_terms; plan targets $21,120."
+      },
+      {
+        "speaker": "vendor",
+        "round": 4,
+        "message": "I can shade it slightly to $23,238, but that's most of what I have.",
+        "offer": 23237.76,
+        "tactic": null,
+        "threat": false,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 5,
+        "message": "We can expand seats and volume next year if you improve the per-unit rate now. We can commit at $21,120 for the year.",
+        "offer": 21120.0,
+        "tactic": "Seat/volume expansion",
+        "threat": false,
+        "reasoning": "Playing volume_tier; plan targets $21,120."
+      },
+      {
+        "speaker": "vendor",
+        "round": 5,
+        "message": "Given the commitment you're describing, I can get to $21,843. That took real work with deal desk.",
+        "offer": 21843.49,
+        "tactic": null,
+        "threat": false,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 6,
+        "message": "Otherwise we'll downgrade to the cheaper tier and cut modules we barely use. We can commit at $21,120 for the year.",
+        "offer": 21120.0,
+        "tactic": "Downgrade / descope",
+        "threat": false,
+        "reasoning": "Playing downgrade_threat; plan targets $21,120."
+      },
+      {
+        "speaker": "vendor",
+        "round": 6,
+        "message": "I can shade it slightly to $21,581, but that's most of what I have.",
+        "offer": 21581.37,
+        "tactic": null,
+        "threat": false,
+        "reasoning": null
+      }
+    ]
+  },
+  "dossier": {
+    "vendor_id": "vercel",
+    "negotiations": [
+      "seed-vercel"
+    ],
+    "list_price_history": [
+      24000.0
+    ],
+    "best_settled": 21581.37,
+    "last_settled": 21581.37,
+    "floor_estimate": {
+      "value": 21581.37,
+      "confidence": 0.65,
+      "basis": "settled at $21,581 after 6 rounds in seed-vercel"
+    },
+    "tactic_ledger": {
+      "budget_freeze": {
+        "tried": 1,
+        "moved": 0,
+        "avg_delta_pct": 0.0,
+        "total_delta_pct": 0.0,
+        "verdict": "WEAK"
+      },
+      "multi_year_commit": {
+        "tried": 1,
+        "moved": 0,
+        "avg_delta_pct": 0.0,
+        "total_delta_pct": 0.0,
+        "verdict": "WEAK"
+      },
+      "payment_terms": {
+        "tried": 1,
+        "moved": 1,
+        "avg_delta_pct": -1.2,
+        "total_delta_pct": -1.2000000000000068,
+        "verdict": "WEAK"
+      },
+      "volume_tier": {
+        "tried": 1,
+        "moved": 1,
+        "avg_delta_pct": -6.0,
+        "total_delta_pct": -6.000018934699373,
+        "verdict": "WORKS"
+      },
+      "downgrade_threat": {
+        "tried": 1,
+        "moved": 1,
+        "avg_delta_pct": -1.2,
+        "total_delta_pct": -1.1999913933167392,
+        "verdict": "WEAK"
+      }
+    },
+    "bluff_ledger": {},
+    "concession_curve": {
+      "rounds_to_first_move": 4,
+      "rounds_to_floor": 6,
+      "avg_step_pct": 2.8
+    },
+    "counterparty_notes": [
+      "Responds to: volume_tier."
+    ]
+  },
+  "settlement": {},
+  "delta": 1048.489999999998
+}

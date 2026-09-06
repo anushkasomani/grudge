@@ -1,0 +1,11 @@
+{
+  "name": "grudge-acp-sidecar",
+  "private": true,
+  "type": "module",
+  "description": "Settles grudge's agreed deals through the Virtuals ACP commerce rail.",
+  "dependencies": {
+    "@virtuals-protocol/acp-node-v2": "^0.1.12",
+    "@account-kit/infra": "^4.84.1",
+    "viem": "^2.47.0"
+  }
+}

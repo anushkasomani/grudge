@@ -1,0 +1,294 @@
+{
+  "vendorId": "segment",
+  "vendor": "Twilio Segment",
+  "listPrice": 32000.0,
+  "generatedAt": "2026-09-06T17:54:01+00:00",
+  "engine": {
+    "buyer": "groq:openai/gpt-oss-20b",
+    "vendor": "groq:openai/gpt-oss-120b"
+  },
+  "withMemory": {
+    "settled": 26700.0,
+    "agreed": true,
+    "rounds": 5,
+    "openingAsk": 23452.0,
+    "openedWith": "Hard budget ceiling",
+    "banned": [],
+    "holdFirm": true,
+    "floorEstimate": 26650.0,
+    "rationale": [
+      "Spending every round on levers that have actually moved them (Hard budget ceiling, Downgrade / descope) instead of working through a generic list.",
+      "They typically don't concede until round 2; expecting to hold the line early rather than bidding against ourselves.",
+      "Leading with Hard budget ceiling: moved them 9.5% on average across 1 attempt(s).",
+      "Known floor ~$26,650 (confidence 65%); anchoring at $23,452 and probing below it - they accepted that number once, so the real floor sits at or under it.",
+      "Walk-away held at $27,183 - last cycle's price. Anything above that is a regression, anything below is progress.",
+      "They have threatened to walk 4x and executed 0x - treating the threat as a bluff and holding firm.",
+      "Evidence: renewal-2025-03: threatened to walk 4x then settled at $26,650 anyway.",
+      "They typically don't move until round 2; not overbidding early."
+    ],
+    "threats": 2,
+    "turns": [
+      {
+        "speaker": "buyer",
+        "round": 1,
+        "message": "Thank you for your time. We have a board\u2011approved budget ceiling that we cannot exceed, so we are looking to settle at $23,452 for the renewal.",
+        "offer": 23452.0,
+        "tactic": "Hard budget ceiling",
+        "threat": false,
+        "reasoning": "Start with a low anchor and a hard budget constraint to set the negotiation tone."
+      },
+      {
+        "speaker": "vendor",
+        "round": 1,
+        "message": "I understand the budget ceiling, but the value and ROI our Segment Team plan delivers align with the $32,000 list price. We can\u2019t meet $23,452 and would need to pause discussions if that\u2019s a hard limit.",
+        "offer": 32000.0,
+        "tactic": null,
+        "threat": true,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 2,
+        "message": "We can move to the Essentials tier with the same 1M MTU allowance, which is $24,000 annually. This still gives us core analytics and event tracking while keeping us within the approved budget.",
+        "offer": 24000.0,
+        "tactic": "Downgrade / descope",
+        "threat": false,
+        "reasoning": "Pushed a realistic downgrade to meet budget constraints."
+      },
+      {
+        "speaker": "vendor",
+        "round": 2,
+        "message": "I hear you on moving to Essentials to stay under budget. While the Essentials tier is priced at $24k, we can keep you on the Team plan with a modest reduction to $29,000 annually, preserving the full suite of features you rely on. Let me know if that works for you.",
+        "offer": 29000.0,
+        "tactic": null,
+        "threat": false,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 3,
+        "message": "Thank you for the offer. Our budget ceiling requires us to stay at $25,584 annually, which still keeps us within the Team plan. We hope this works for both sides.",
+        "offer": 25584.0,
+        "tactic": "Hard budget ceiling",
+        "threat": false,
+        "reasoning": "I anchored to the budget ceiling and capped the price at the maximum we can accept."
+      },
+      {
+        "speaker": "vendor",
+        "round": 3,
+        "message": "I appreciate the tighter budget. To keep you on the full Team plan, I can bring the renewal down to $26,700 annually\u2014still delivering the complete feature set you rely on. Let me know if we can move forward at that level.",
+        "offer": 26700.0,
+        "tactic": null,
+        "threat": false,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 4,
+        "message": "I appreciate the offer; however, our approved ceiling limits us to $25,584 annually. That\u2019s the maximum we can commit to while keeping the Team plan active.",
+        "offer": 25584.0,
+        "tactic": "Downgrade / descope",
+        "threat": false,
+        "reasoning": "Sticking to the upper bound of the target range to maintain budget compliance"
+      },
+      {
+        "speaker": "vendor",
+        "round": 4,
+        "message": "I understand the budget constraints, but we\u2019ve already moved significantly from the list price. At $26,700 we preserve the full Team plan benefits; dropping further isn\u2019t feasible, so we\u2019ll need to pause if that can\u2019t work.",
+        "offer": 26700.0,
+        "tactic": null,
+        "threat": true,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 5,
+        "message": "I appreciate the adjustment and the value you\u2019re offering. We can move forward at $25,584 annually, which aligns with our budget constraints while maintaining the Team plan. Thank you for working with us on this.",
+        "offer": 25584.0,
+        "tactic": "Hard budget ceiling",
+        "threat": false,
+        "reasoning": "Stated a concrete number that meets budget ceiling and preserves full plan."
+      }
+    ]
+  },
+  "withoutMemory": {
+    "settled": 25200.0,
+    "agreed": true,
+    "rounds": 5,
+    "openingAsk": 24000.0,
+    "openedWith": "Competitor quote leverage",
+    "banned": [],
+    "holdFirm": false,
+    "floorEstimate": null,
+    "rationale": [
+      "No prior history with this vendor in memory - negotiating blind.",
+      "Anchoring at a generic 25% off list.",
+      "Trying tactics in default order; no idea which ones this vendor responds to.",
+      "Any walkaway threat will be treated as credible."
+    ],
+    "threats": 3,
+    "turns": [
+      {
+        "speaker": "buyer",
+        "round": 1,
+        "message": "We've received a competing offer for a similar Team plan at $23,000 per year; can you match or beat that?",
+        "offer": 24000.0,
+        "tactic": "Competitor quote leverage",
+        "threat": false,
+        "reasoning": "Open with a lower ask and leverage competitor pricing to negotiate."
+      },
+      {
+        "speaker": "vendor",
+        "round": 1,
+        "message": "I understand the competitor's $23k offer. To keep you on the best platform, I can bring our price down to $29,000 annually. Let me know if that works.",
+        "offer": 29000.0,
+        "tactic": null,
+        "threat": false,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 2,
+        "message": "Thank you for your flexibility. Our board\u2011approved budget ceiling is set, so we can only consider $24,000 per year.",
+        "offer": 24000.0,
+        "tactic": "Hard budget ceiling",
+        "threat": false,
+        "reasoning": "Started with the target price and highlighted the fixed budget constraint to keep the negotiation tight."
+      },
+      {
+        "speaker": "vendor",
+        "round": 2,
+        "message": "I hear $24k is your max; we can meet you at $26,700 annually to keep you on the leading platform. Let me know if that works.",
+        "offer": 26700.0,
+        "tactic": null,
+        "threat": true,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 3,
+        "message": "We can move forward on a 2\u2011year commitment at $25,600 per year. That guarantees us your platform and gives us the certainty we need.",
+        "offer": 25600.0,
+        "tactic": "Multi-year commitment",
+        "threat": false,
+        "reasoning": "Used multi\u2011year tactic to hit target below $25,600."
+      },
+      {
+        "speaker": "vendor",
+        "round": 3,
+        "message": "I appreciate the 2\u2011year commitment, but a multi\u2011year term doesn\u2019t change our pricing \u2013 we remain at $26,700 per year to ensure you get the full platform value.",
+        "offer": 26700.0,
+        "tactic": null,
+        "threat": true,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 4,
+        "message": "We appreciate your flexibility and would be willing to prepay the full annual amount upfront at $24,800, which meets our budget and keeps the commitment clear.",
+        "offer": 24800.0,
+        "tactic": "Prepay / annual upfront",
+        "threat": false,
+        "reasoning": "Targeted a number below $25,600 while offering upfront payment for a discount."
+      },
+      {
+        "speaker": "vendor",
+        "round": 4,
+        "message": "I understand the $24,800 prepaid offer, but our pricing remains at $26,700 annually to deliver the full platform value you need. We can\u2019t move lower on this deal.",
+        "offer": 26700.0,
+        "tactic": null,
+        "threat": true,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 5,
+        "message": "We can agree to a 2\u2011year commitment at $25,200 per year if we commit to expanding our seat count by 20% next year. This gives us the pricing we need while ensuring continued growth on your platform.",
+        "offer": 25200.0,
+        "tactic": "Seat/volume expansion",
+        "threat": false,
+        "reasoning": "Targeted price below $25,600 with a future expansion incentive."
+      },
+      {
+        "speaker": "vendor",
+        "round": 5,
+        "message": "Great \u2013 we can lock in $25,200 per year for a 2\u2011year term with a 20% seat expansion next year. Looking forward to continuing our partnership.",
+        "offer": 25200.0,
+        "tactic": null,
+        "threat": false,
+        "reasoning": null
+      }
+    ]
+  },
+  "dossier": {
+    "vendor_id": "segment",
+    "negotiations": [
+      "renewal-2025-03"
+    ],
+    "list_price_history": [
+      32000.0
+    ],
+    "best_settled": 26650.0,
+    "last_settled": 26650.0,
+    "floor_estimate": {
+      "value": 26650.0,
+      "confidence": 0.65,
+      "basis": "settled at $26,650 after 6 rounds in renewal-2025-03"
+    },
+    "tactic_ledger": {
+      "budget_freeze": {
+        "tried": 1,
+        "moved": 1,
+        "avg_delta_pct": -9.531,
+        "total_delta_pct": -9.53125,
+        "verdict": "WORKS"
+      },
+      "multi_year_commit": {
+        "tried": 1,
+        "moved": 0,
+        "avg_delta_pct": 0.0,
+        "total_delta_pct": 0.0,
+        "verdict": "WEAK"
+      },
+      "payment_terms": {
+        "tried": 1,
+        "moved": 0,
+        "avg_delta_pct": 0.0,
+        "total_delta_pct": 0.0,
+        "verdict": "WEAK"
+      },
+      "volume_tier": {
+        "tried": 1,
+        "moved": 0,
+        "avg_delta_pct": 0.0,
+        "total_delta_pct": 0.0,
+        "verdict": "WEAK"
+      },
+      "downgrade_threat": {
+        "tried": 1,
+        "moved": 1,
+        "avg_delta_pct": -7.945,
+        "total_delta_pct": -7.9447322970639025,
+        "verdict": "WORKS"
+      }
+    },
+    "bluff_ledger": {
+      "walkaway_threat": {
+        "threatened": 4,
+        "executed": 0,
+        "evidence": "renewal-2025-03: threatened to walk 4x then settled at $26,650 anyway.",
+        "verdict": "BLUFF"
+      }
+    },
+    "concession_curve": {
+      "rounds_to_first_move": 2,
+      "rounds_to_floor": 6,
+      "avg_step_pct": 8.74
+    },
+    "counterparty_notes": [
+      "Responds to: budget_freeze, downgrade_threat."
+    ]
+  },
+  "settlement": {},
+  "delta": -1500.0
+}

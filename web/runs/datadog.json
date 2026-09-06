@@ -1,0 +1,307 @@
+{
+  "vendorId": "datadog",
+  "vendor": "Datadog",
+  "listPrice": 48000.0,
+  "generatedAt": "2026-09-06T17:50:43+00:00",
+  "engine": {
+    "buyer": "groq:openai/gpt-oss-20b",
+    "vendor": "groq:openai/gpt-oss-120b"
+  },
+  "withMemory": {
+    "settled": 35200.0,
+    "agreed": true,
+    "rounds": 6,
+    "openingAsk": 33792.0,
+    "openedWith": "Hard budget ceiling",
+    "banned": [],
+    "holdFirm": true,
+    "floorEstimate": 38400.0,
+    "rationale": [
+      "Spending every round on levers that have actually moved them (Hard budget ceiling, Multi-year commitment, Prepay / annual upfront) instead of working through a generic list.",
+      "They typically don't concede until round 2; expecting to hold the line early rather than bidding against ourselves.",
+      "Leading with Hard budget ceiling: moved them 8.8% on average across 1 attempt(s).",
+      "Known floor ~$38,400 (confidence 65%); anchoring at $33,792 and probing below it - they accepted that number once, so the real floor sits at or under it.",
+      "Walk-away held at $39,168 - last cycle's price. Anything above that is a regression, anything below is progress.",
+      "They have threatened to walk 1x and executed 0x - treating the threat as a bluff and holding firm.",
+      "Evidence: renewal-2025-03: threatened to walk 1x then settled at $38,400 anyway.",
+      "They typically don't move until round 2; not overbidding early."
+    ],
+    "threats": 5,
+    "turns": [
+      {
+        "speaker": "buyer",
+        "round": 1,
+        "message": "We\u2019re looking to renew at $33,792 for the Pro tier across 40 hosts. Our board has set a hard budget ceiling that we cannot exceed, so we need to stay within that limit. Let\u2019s finalize the terms and lock in the discount.",
+        "offer": 33792.0,
+        "tactic": "Hard budget ceiling",
+        "threat": false,
+        "reasoning": "Anchored at the proven floor to leverage the budget ceiling and secure the lowest price."
+      },
+      {
+        "speaker": "vendor",
+        "round": 1,
+        "message": "I understand the budget pressure, but the Pro tier for 40 hosts delivers enterprise\u2011grade observability, security and AI\u2011driven insights that drive real ROI. At $48,000 annually we\u2019re providing full access to our platform\u2019s premium features and dedicated support. If we can\u2019t meet the value at this price, I\u2019ll need to take this to our deal desk for further review.",
+        "offer": 48000.0,
+        "tactic": null,
+        "threat": true,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 2,
+        "message": "We can secure a 2\u2011year commitment at $33,792 per year, which locks in the current price and gives you guaranteed revenue and lower churn risk.",
+        "offer": 33792.0,
+        "tactic": "Multi-year commitment",
+        "threat": false,
+        "reasoning": "Anchor at known floor and leverage multi\u2011year commitment."
+      },
+      {
+        "speaker": "vendor",
+        "round": 2,
+        "message": "I appreciate the 2\u2011year commitment \u2013 that definitely reduces churn risk. Given that, we can move from $48,000 to $43,800 annually for the Pro tier across 40 hosts. If that works, I\u2019ll get the final sign\u2011off, but otherwise I\u2019ll have to pull this back to our deal desk.",
+        "offer": 43800.0,
+        "tactic": null,
+        "threat": true,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 3,
+        "message": "We\u2019re ready to move to a 2\u2011year prepay at $35,200 per year \u2013 this keeps us under our hard ceiling while giving you the upfront cash flow benefit you\u2019re seeking. Please confirm the 2\u2011year terms and we\u2019ll finalize the agreement.",
+        "offer": 35200.0,
+        "tactic": "Prepay / annual upfront",
+        "threat": false,
+        "reasoning": "Used prepay discount to stay within budget ceiling and push price below target."
+      },
+      {
+        "speaker": "vendor",
+        "round": 3,
+        "message": "I appreciate the 2\u2011year prepay \u2013 that\u2019s valuable to us. To reflect that commitment, I can bring the annual price down to $40,650 for the Pro tier across 40 hosts. If that works, we can lock in the 2\u2011year term and get everything signed today.",
+        "offer": 40650.0,
+        "tactic": null,
+        "threat": false,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 4,
+        "message": "Thank you for the offer. Our board has approved a hard budget ceiling for this renewal, and we must stay at $33,792 per year for the Pro tier across 40 hosts. This figure aligns with our financial constraints and the value we expect from the platform. Please let us finalize the 2\u2011year prepay at this price.",
+        "offer": 33792.0,
+        "tactic": "Hard budget ceiling",
+        "threat": false,
+        "reasoning": "Anchored to the known floor and used the hard budget ceiling tactic to secure the lowest acceptable price."
+      },
+      {
+        "speaker": "vendor",
+        "round": 4,
+        "message": "I hear the budget constraints and appreciate the 2\u2011year prepay \u2013 that\u2019s valuable. To move us closer, I can adjust the annual price to $38,300 for the Pro tier across 40 hosts. If that works, we can lock in the 2\u2011year term today; otherwise I\u2019ll need to involve our deal desk.",
+        "offer": 38300.0,
+        "tactic": null,
+        "threat": true,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 5,
+        "message": "We can proceed with a 2\u2011year prepay at $35,200 per year for the Pro tier across 40 hosts. This stays within our budget ceiling and reflects the commitment. Please confirm to finalize today.",
+        "offer": 35200.0,
+        "tactic": "Multi-year commitment",
+        "threat": false,
+        "reasoning": "Targeted a lower price to stay within budget while leveraging multi\u2011year commitment."
+      },
+      {
+        "speaker": "vendor",
+        "round": 5,
+        "message": "I understand your budget ceiling and the value you see in our Pro tier. To meet you halfway, I can bring the annual price down to $36,525 for a 2\u2011year prepay across 40 hosts. If that works we can lock in the agreement today, otherwise I\u2019ll have to involve our deal desk for further review.",
+        "offer": 36525.0,
+        "tactic": null,
+        "threat": true,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 6,
+        "message": "We can lock in a 2\u2011year prepay at $33,792 per year for the Pro tier across 40 hosts. That meets our budget ceiling and confirms the commitment. Please confirm to finalize today.",
+        "offer": 33792.0,
+        "tactic": "Prepay / annual upfront",
+        "threat": false,
+        "reasoning": "Anchored at our known floor to secure the discount while staying within budget."
+      },
+      {
+        "speaker": "vendor",
+        "round": 6,
+        "message": "I appreciate the firm commitment and the 2\u2011year prepay \u2013 that\u2019s exactly the kind of partnership we value. To keep the momentum, I can meet you at $35,200 annually for the Pro tier across 40 hosts. If that works we can lock in the 2\u2011year term today; otherwise I\u2019ll need to involve our deal desk.",
+        "offer": 35200.0,
+        "tactic": null,
+        "threat": true,
+        "reasoning": null
+      }
+    ]
+  },
+  "withoutMemory": {
+    "settled": 36000.0,
+    "agreed": true,
+    "rounds": 5,
+    "openingAsk": 36000.0,
+    "openedWith": "Competitor quote leverage",
+    "banned": [],
+    "holdFirm": false,
+    "floorEstimate": null,
+    "rationale": [
+      "No prior history with this vendor in memory - negotiating blind.",
+      "Anchoring at a generic 25% off list.",
+      "Trying tactics in default order; no idea which ones this vendor responds to.",
+      "Any walkaway threat will be treated as credible."
+    ],
+    "threats": 0,
+    "turns": [
+      {
+        "speaker": "buyer",
+        "round": 1,
+        "message": "Hi, we\u2019ve reviewed our usage and have received a competing offer from NewRelic for 40 hosts at $35,000 per year. Could Datadog match or beat that to secure the renewal? Our target is $36,000, which aligns with our budget and the value we expect. Let\u2019s finalize this quickly.",
+        "offer": 36000.0,
+        "tactic": "Competitor quote leverage",
+        "threat": false,
+        "reasoning": "Opened with competitor price to leverage discount."
+      },
+      {
+        "speaker": "vendor",
+        "round": 1,
+        "message": "I understand the New Relic quote, but Datadog\u2019s Pro tier for 40 hosts delivers unmatched observability, full\u2011stack visibility, and enterprise support that directly translates to faster issue resolution and lower operational costs. Our standard renewal price remains $48,000 for the year, reflecting the premium value and continued investment in our platform. Let\u2019s discuss how we can align on the roadmap and ensure you get the full benefit.",
+        "offer": 48000.0,
+        "tactic": null,
+        "threat": false,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 2,
+        "message": "Thank you for the overview. We have a board\u2011approved budget ceiling of $38,400 for this renewal and cannot exceed it. Accordingly, we\u2019re offering $36,000 for the Pro tier on 40 hosts. We believe this aligns with our financial constraints while still delivering the critical observability needed.",
+        "offer": 36000.0,
+        "tactic": "Hard budget ceiling",
+        "threat": false,
+        "reasoning": "Set a firm budget ceiling and counter\u2011offer below target to preserve leverage."
+      },
+      {
+        "speaker": "vendor",
+        "round": 2,
+        "message": "I hear your budget constraints, but the Pro tier\u2019s comprehensive observability and enterprise support drive measurable ROI that far exceeds a simple price tag. To keep the partnership moving forward, I can adjust the renewal to $44,000 for the year\u2014a modest reduction while preserving the full value you rely on. Let\u2019s lock this in and keep your operations on the cutting edge.",
+        "offer": 44000.0,
+        "tactic": null,
+        "threat": false,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 3,
+        "message": "We appreciate the value you bring and are committed to a long\u2011term partnership. To align with our financial plan, we propose a 2\u2011year renewal at $36,000 per year, which guarantees us a stable commitment and provides you with predictable revenue. We\u2019re ready to finalize this swiftly. ",
+        "offer": 36000.0,
+        "tactic": "Multi-year commitment",
+        "threat": false,
+        "reasoning": "Offered a lower price with a multi\u2011year commitment to secure a discount while staying within budget."
+      },
+      {
+        "speaker": "vendor",
+        "round": 3,
+        "message": "I appreciate the commitment to a 2\u2011year term \u2013 that stability is valuable to us. Given the multi\u2011year agreement, we can bring the annual renewal to $40,800, preserving the full Pro tier benefits while aligning closer to your budget.",
+        "offer": 40800.0,
+        "tactic": null,
+        "threat": false,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 4,
+        "message": "We can commit to a 2\u2011year term by prepaying the full annual amount upfront at $36,000 per year. This aligns with our budget and offers Datadog a guaranteed cash\u2011flow benefit. We\u2019re ready to move forward on this terms.",
+        "offer": 36000.0,
+        "tactic": "Prepay / annual upfront",
+        "threat": false,
+        "reasoning": "Pushed price to target while leveraging prepay to sweeten deal."
+      },
+      {
+        "speaker": "vendor",
+        "round": 4,
+        "message": "I appreciate the 2\u2011year prepay and the stability it provides; to reflect that commitment we can bring the annual price to $36,600, preserving the full Pro tier benefits while moving closer to your budget.",
+        "offer": 36600.0,
+        "tactic": null,
+        "threat": false,
+        "reasoning": null
+      },
+      {
+        "speaker": "buyer",
+        "round": 5,
+        "message": "Thank you for the offer; we can move forward with a 2\u2011year prepay at $36,000 per year. This meets our budget and ensures a stable partnership. Looking forward to finalizing the agreement.",
+        "offer": 36000.0,
+        "tactic": "Seat/volume expansion",
+        "threat": false,
+        "reasoning": "We stayed within the target range to secure the renewal."
+      },
+      {
+        "speaker": "vendor",
+        "round": 5,
+        "message": "Great, we\u2019re pleased to confirm the 2\u2011year prepay at $36,000 per year and keep you on the full Pro tier with all the enterprise benefits. We\u2019ll get the paperwork over to you right away so we can lock in this partnership.",
+        "offer": 36000.0,
+        "tactic": null,
+        "threat": false,
+        "reasoning": null
+      }
+    ]
+  },
+  "dossier": {
+    "vendor_id": "datadog",
+    "negotiations": [
+      "renewal-2025-03"
+    ],
+    "list_price_history": [
+      48000.0
+    ],
+    "best_settled": 38400.0,
+    "last_settled": 38400.0,
+    "floor_estimate": {
+      "value": 38400.0,
+      "confidence": 0.65,
+      "basis": "settled at $38,400 after 4 rounds in renewal-2025-03"
+    },
+    "tactic_ledger": {
+      "budget_freeze": {
+        "tried": 1,
+        "moved": 1,
+        "avg_delta_pct": -8.75,
+        "total_delta_pct": -8.75,
+        "verdict": "WORKS"
+      },
+      "multi_year_commit": {
+        "tried": 1,
+        "moved": 1,
+        "avg_delta_pct": -7.192,
+        "total_delta_pct": -7.191780821917808,
+        "verdict": "WORKS"
+      },
+      "payment_terms": {
+        "tried": 1,
+        "moved": 1,
+        "avg_delta_pct": -5.535,
+        "total_delta_pct": -5.535055350553505,
+        "verdict": "WORKS"
+      }
+    },
+    "bluff_ledger": {
+      "walkaway_threat": {
+        "threatened": 1,
+        "executed": 0,
+        "evidence": "renewal-2025-03: threatened to walk 1x then settled at $38,400 anyway.",
+        "verdict": "BLUFF"
+      }
+    },
+    "concession_curve": {
+      "rounds_to_first_move": 2,
+      "rounds_to_floor": 4,
+      "avg_step_pct": 7.16
+    },
+    "counterparty_notes": [
+      "Responds to: budget_freeze, multi_year_commit, payment_terms."
+    ]
+  },
+  "settlement": {},
+  "delta": 800.0
+}

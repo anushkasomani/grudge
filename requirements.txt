@@ -1,0 +1,7 @@
+sibyl-memory-client>=0.8.0
+groq>=1.7.0
+anthropic>=1.4.0
+web3>=8.0.0
+rich>=15.0.0
+python-dotenv>=1.2.0
+pytest>=8.0.0
