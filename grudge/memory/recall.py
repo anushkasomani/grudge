@@ -97,15 +97,32 @@ def _informed(
     warmup = int(curve.get("rounds_to_first_move") or 0)
 
     if effective:
-        # Spend every single round on a lever known to move them, cycling
-        # through the proven set. The naive plan spreads its rounds across
-        # levers this vendor ignores, and that is where the money is lost.
-        tactic_order = [effective[i % len(effective)] for i in range(12)]
+        # Mostly exploit what works, but keep probing untried levers: one
+        # session cannot test all eight, so a dossier built from a single
+        # negotiation would otherwise lock in the first thing that happened to
+        # land and never discover a better lever.
+        tactic_order = []
+        # Only spend rounds exploring when the known playbook is thin. With
+        # three or more proven levers there is nothing to gain from probing,
+        # and every probe round is a concession not extracted.
+        probe_budget = 0 if len(effective) >= 3 else min(2, len(untried))
+        probes = list(untried[:probe_budget])
+        for i in range(12):
+            # Probe on rounds 3 and 5, exploit everywhere else.
+            if probes and i in (2, 4):
+                tactic_order.append(probes.pop(0))
+            else:
+                tactic_order.append(effective[i % len(effective)])
         rationale.append(
-            f"Spending every round on levers that have actually moved them "
+            f"Spending most rounds on levers that have actually moved them "
             f"({', '.join(describe(e) for e in effective)}) instead of working "
             f"through a generic list."
         )
+        if probe_budget:
+            rationale.append(
+                f"Also probing {probe_budget} lever(s) never tried on this "
+                f"vendor, so the dossier keeps improving instead of locking in."
+            )
         if warmup > 1:
             rationale.append(
                 f"They typically don't concede until round {warmup}; expecting "

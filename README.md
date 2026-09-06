@@ -74,7 +74,23 @@ cp .env.example .env          # optional: add keys
 
 `--offline` uses a deterministic scripted counterparty so the demo runs with no
 API key at all. Drop it (with `GROQ_API_KEY` or `ANTHROPIC_API_KEY` set) for live
-LLM-vs-LLM negotiation; the vendor agent defaults to Groq, the buyer to Anthropic.
+LLM-vs-LLM negotiation.
+
+Provider selection verifies a key actually works before using it, and picks a
+currently-available Groq model rather than pinning one that can be retired. When
+both agents land on Groq they are given different models, so the demo is two
+distinct agents rather than one model arguing with itself.
+
+### Viewing the web demo
+
+```bash
+./.venv/bin/python -m grudge.cli compare --vendor datadog --export
+python3 -m http.server -d web 8000     # then open http://localhost:8000
+```
+
+Each vendor exports to `web/runs/<vendor>.json` plus an `index.json`, so running
+`compare` for several vendors gives you a tab per vendor instead of overwriting
+the previous result.
 
 ### Commands
 
