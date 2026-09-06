@@ -11,8 +11,8 @@
       "vendorId": "segment",
       "vendor": "Twilio Segment",
       "file": "segment.json",
-      "delta": -1500.0,
-      "generatedAt": "2026-09-06T17:54:01+00:00"
+      "delta": 1748.0,
+      "generatedAt": "2026-09-06T17:58:04+00:00"
     },
     {
       "vendorId": "vercel",
