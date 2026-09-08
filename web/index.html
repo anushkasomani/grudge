@@ -1,71 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
 <meta charset="utf-8">
-<title>Grudge Ledger</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grudge Live</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
   :root {
-    --ink: #12100E;
-    --ink-2: #4A443C;
-    --ink-3: #7C7469;
-    --paper: #FBF9F5;
-    --card: #FFFFFF;
-    --rule: #E3DDD1;
-    --rule-2: #EFEAE0;
-    --amber: #B4762A;
-    --amber-soft: #F3E7D4;
-    --green: #2F6B4F;
-    --green-soft: #E2EDE6;
-    --red: #A33A2C;
-    --red-soft: #F6E3DF;
-    --shadow: 0 1px 2px rgba(18,16,14,.05), 0 8px 24px -12px rgba(18,16,14,.14);
-
+    --ink: #f2ede4;
+    --ink-2: #b5ada0;
+    --ink-3: #837b70;
+    --paper: #14120f;
+    --card: #1c1916;
+    --rule: #2e2924;
+    --rule-2: #262220;
+    --amber: #d89a46;
+    --amber-soft: #35291a;
+    --green: #6bb98c;
+    --green-soft: #1b2e23;
+    --red: #de7c6b;
+    --red-soft: #33201c;
+    --blue: #7db1ff;
+    --blue-soft: #1a2640;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.7);
     --display: "Newsreader", Georgia, "Times New Roman", serif;
     --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --ink: #F2EDE4;
-      --ink-2: #B5ADA0;
-      --ink-3: #837B70;
-      --paper: #14120F;
-      --card: #1C1916;
-      --rule: #2E2924;
-      --rule-2: #262220;
-      --amber: #D89A46;
-      --amber-soft: #35291A;
-      --green: #6BB98C;
-      --green-soft: #1B2E23;
-      --red: #DE7C6B;
-      --red-soft: #33201C;
-      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.7);
-    }
-  }
-
-  :root[data-theme="dark"] {
-    --ink: #F2EDE4;
-    --ink-2: #B5ADA0;
-    --ink-3: #837B70;
-    --paper: #14120F;
-    --card: #1C1916;
-    --rule: #2E2924;
-    --rule-2: #262220;
-    --amber: #D89A46;
-    --amber-soft: #35291A;
-    --green: #6BB98C;
-    --green-soft: #1B2E23;
-    --red: #DE7C6B;
-    --red-soft: #33201C;
-    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.7);
   }
 
   * { box-sizing: border-box; }
 
   body {
     margin: 0;
-    background: var(--paper);
+    background:
+      radial-gradient(circle at top, rgba(216,154,70,.06), transparent 42%),
+      linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0)),
+      var(--paper);
     color: var(--ink);
     font-family: var(--sans);
     font-size: 15px;
@@ -73,17 +45,153 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  a { color: var(--blue); }
+
   .wrap {
     max-width: 1180px;
     margin: 0 auto;
-    padding: 48px 28px 96px;
+    padding: 40px 28px 92px;
     display: flex;
     flex-direction: column;
-    gap: 44px;
+    gap: 32px;
   }
 
-  /* ---------- masthead ---------- */
-  .masthead { display: flex; flex-direction: column; gap: 14px; }
+  .site-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 12px;
+  }
+  .brandmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .brandmark .mark {
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+    background: var(--ink);
+    color: var(--paper);
+    letter-spacing: 0;
+    font-weight: 700;
+  }
+  .nav-links {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+  .nav-links a {
+    color: var(--ink-2);
+    text-decoration: none;
+    padding: 8px 11px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+  }
+  .nav-links a[aria-current="page"] {
+    color: var(--paper);
+    background: var(--ink);
+    border-color: var(--ink);
+  }
+  .page[hidden] { display: none; }
+
+  .home {
+    display: grid;
+    grid-template-columns: 1.15fr .85fr;
+    gap: 18px;
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .home { grid-template-columns: 1fr; }
+  }
+  .home-panel {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+    padding: 22px;
+  }
+  .home-kicker {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 10px;
+  }
+  .home-copy {
+    color: var(--ink-2);
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 14px 0 0;
+  }
+  .home-actions {
+    margin-top: 18px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .home-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 38px;
+    padding: 0 14px;
+    border-radius: 7px;
+    text-decoration: none;
+    border: 1px solid var(--rule);
+    color: var(--ink);
+    background: var(--paper);
+    font-weight: 600;
+  }
+  .home-cta.primary {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+  @media (max-width: 900px) {
+    .feature-grid { grid-template-columns: 1fr; }
+  }
+  .feature {
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: var(--card);
+    box-shadow: var(--shadow);
+    padding: 16px;
+  }
+  .feature h3 {
+    margin: 0 0 8px;
+    font-family: var(--display);
+    font-size: 22px;
+    font-weight: 500;
+  }
+  .feature p {
+    margin: 0;
+    color: var(--ink-2);
+    line-height: 1.55;
+  }
+
+  .masthead {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
 
   .eyebrow {
     font-family: var(--mono);
@@ -99,50 +207,125 @@
   .eyebrow::after {
     content: "";
     flex: 1;
+    min-width: 32px;
     height: 1px;
     background: var(--rule);
-    min-width: 24px;
   }
 
   h1 {
+    margin: 0;
     font-family: var(--display);
     font-weight: 500;
-    font-size: clamp(38px, 6vw, 62px);
+    font-size: clamp(40px, 6vw, 66px);
     line-height: 1.02;
     letter-spacing: -.02em;
-    margin: 0;
     text-wrap: balance;
   }
+
   h1 em { font-style: italic; color: var(--amber); }
 
   .standfirst {
+    margin: 0;
+    max-width: 62ch;
     font-family: var(--display);
     font-size: 19px;
-    line-height: 1.5;
+    line-height: 1.52;
     color: var(--ink-2);
-    max-width: 62ch;
-    margin: 0;
   }
 
   .meta {
     display: flex;
-    gap: 20px;
+    gap: 18px;
     flex-wrap: wrap;
     font-family: var(--mono);
     font-size: 12px;
     color: var(--ink-3);
-    padding-top: 6px;
-    border-top: 1px solid var(--rule);
+    padding-top: 2px;
   }
   .meta b { color: var(--ink-2); font-weight: 500; }
 
-  /* ---------- verdict ---------- */
+  .controls {
+    display: flex;
+    gap: 12px 14px;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-top: 6px;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .field {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+
+  select,
+  .toggle,
+  .run {
+    height: 36px;
+    border-radius: 7px;
+    border: 1px solid var(--rule);
+    background: var(--card);
+    color: var(--ink);
+  }
+
+  select {
+    padding: 0 34px 0 11px;
+  }
+
+  .toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 11px;
+    cursor: pointer;
+  }
+  .toggle input { accent-color: var(--blue); }
+
+  .run {
+    padding: 0 16px;
+    background: var(--ink);
+    color: var(--paper);
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .run:disabled { opacity: .55; cursor: wait; }
+
+  .statusline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--ink-3);
+  }
+  .dot.live {
+    background: var(--green);
+    box-shadow: 0 0 0 5px var(--green-soft);
+  }
+
   .verdict {
     background: var(--card);
     border: 1px solid var(--rule);
     border-radius: 4px;
     box-shadow: var(--shadow);
     overflow: hidden;
+    margin-top: 2px;
   }
 
   .verdict-grid {
@@ -153,7 +336,12 @@
     .verdict-grid { grid-template-columns: 1fr; }
   }
 
-  .col { padding: 30px 32px 26px; display: flex; flex-direction: column; gap: 6px; }
+  .col {
+    padding: 28px 30px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
   .col.wiped { background: linear-gradient(180deg, var(--red-soft) 0%, transparent 62%); }
   .col.intact { background: linear-gradient(180deg, var(--green-soft) 0%, transparent 62%); }
 
@@ -169,7 +357,12 @@
   .col.wiped .col-label { color: var(--red); }
   .col.intact .col-label { color: var(--green); }
 
-  .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+  .dot-mini {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+  }
 
   .price {
     font-family: var(--mono);
@@ -181,7 +374,6 @@
   }
   .col.wiped .price { color: var(--red); }
   .col.intact .price { color: var(--green); }
-
   .price-note { font-size: 13px; color: var(--ink-3); font-family: var(--mono); }
 
   .divider {
@@ -219,9 +411,7 @@
   }
   .delta-pct { font-family: var(--mono); font-size: 12px; color: var(--ink-3); }
 
-  /* ---------- behaviour diff ---------- */
   .diff { border-top: 1px solid var(--rule); }
-
   .diff-row {
     display: grid;
     grid-template-columns: 1fr 190px 1fr;
@@ -230,9 +420,7 @@
     font-size: 13.5px;
   }
   .diff-row:last-child { border-bottom: none; }
-  @media (max-width: 720px) {
-    .diff-row { grid-template-columns: 1fr; text-align: left; }
-  }
+  @media (max-width: 720px) { .diff-row { grid-template-columns: 1fr; } }
 
   .diff-key {
     font-family: var(--mono);
@@ -256,9 +444,7 @@
     .diff-cell.r::before { content: "intact — "; color: var(--green); font-family: var(--mono); font-size: 11px; }
   }
 
-  .diff-cell strong { color: var(--ink); font-weight: 600; }
   .num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
-
   .flag {
     display: inline-block;
     font-family: var(--mono);
@@ -270,9 +456,7 @@
   .flag.yes { color: var(--green); border-color: var(--green); background: var(--green-soft); }
   .flag.no  { color: var(--red);   border-color: var(--red);   background: var(--red-soft); }
 
-  /* ---------- sections ---------- */
   section { display: flex; flex-direction: column; gap: 18px; }
-
   h2 {
     font-family: var(--display);
     font-weight: 500;
@@ -291,7 +475,6 @@
   }
   .lede { color: var(--ink-2); max-width: 68ch; margin: -6px 0 0; }
 
-  /* ---------- dossier ---------- */
   .panel {
     background: var(--card);
     border: 1px solid var(--rule);
@@ -300,92 +483,68 @@
     overflow: hidden;
   }
 
-  .table-scroll { overflow-x: auto; }
-
-  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
-  thead th {
-    font-family: var(--mono);
-    font-size: 10.5px;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    font-weight: 500;
-    text-align: right;
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--rule);
-    white-space: nowrap;
-  }
-  thead th:first-child { text-align: left; }
-  tbody td {
-    padding: 11px 16px;
-    border-bottom: 1px solid var(--rule-2);
-    text-align: right;
-    font-variant-numeric: tabular-nums;
-    font-family: var(--mono);
-    color: var(--ink-2);
-    white-space: nowrap;
-  }
-  tbody td:first-child {
-    text-align: left;
-    font-family: var(--sans);
-    color: var(--ink);
-    white-space: normal;
-  }
-  tbody tr:last-child td { border-bottom: none; }
-
-  .verdict-tag {
-    font-family: var(--mono);
-    font-size: 10.5px;
-    letter-spacing: .08em;
-    padding: 2px 8px;
-    border-radius: 3px;
-    font-weight: 500;
-  }
-  .v-WORKS { color: var(--green); background: var(--green-soft); }
-  .v-DEAD  { color: var(--red);   background: var(--red-soft); }
-  .v-WEAK  { color: var(--amber); background: var(--amber-soft); }
-
-  .findings {
+  .memory-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    border-top: 1px solid var(--rule);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .finding {
+  @media (max-width: 860px) { .memory-grid { grid-template-columns: 1fr; } }
+  .memory-card.full { grid-column: 1 / -1; }
+
+  .memory-card {
     padding: 18px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
     border-right: 1px solid var(--rule-2);
+    border-bottom: 1px solid var(--rule-2);
   }
-  .finding:last-child { border-right: none; }
-  .finding-k {
+  .memory-card:nth-child(2n) { border-right: none; }
+  .memory-card:last-child { border-bottom: none; }
+  @media (max-width: 860px) {
+    .memory-card { border-right: none; }
+  }
+
+  .memory-k {
     font-family: var(--mono);
     font-size: 10px;
     letter-spacing: .12em;
     text-transform: uppercase;
     color: var(--ink-3);
+    margin-bottom: 6px;
   }
-  .finding-v {
-    font-family: var(--mono);
-    font-size: 19px;
-    font-weight: 600;
-    font-variant-numeric: tabular-nums;
-    letter-spacing: -.01em;
+  .memory-v {
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--ink-2);
   }
-  .finding-note { font-size: 12.5px; color: var(--ink-3); line-height: 1.45; }
+  .memory-v b { color: var(--ink); }
 
-  /* ---------- transcripts ---------- */
+  .why {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--green);
+    border-radius: 4px;
+    padding: 16px 18px;
+  }
+  .why ol {
+    margin: 0;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: var(--ink-2);
+  }
+  .why li.placeholder {
+    list-style: none;
+    padding-left: 0;
+    color: var(--ink-3);
+  }
+
   .transcripts {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
   }
-  @media (max-width: 900px) {
-    .transcripts { grid-template-columns: 1fr; }
-  }
+  @media (max-width: 900px) { .transcripts { grid-template-columns: 1fr; } }
 
   .tcol { display: flex; flex-direction: column; gap: 0; }
-
   .thead {
     padding: 14px 18px;
     border: 1px solid var(--rule);
@@ -425,21 +584,7 @@
     box-shadow: var(--shadow);
   }
 
-  .round-rule {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 18px 8px;
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-  }
-  .round-rule::after { content: ""; flex: 1; height: 1px; background: var(--rule-2); }
-
   .turn { padding: 7px 18px; display: flex; flex-direction: column; gap: 4px; }
-
   .turn-who {
     font-family: var(--mono);
     font-size: 10px;
@@ -463,10 +608,8 @@
     background: var(--amber-soft);
     color: var(--amber);
   }
-
   .turn-msg { font-size: 13.5px; line-height: 1.5; color: var(--ink); }
   .turn.vendor .turn-msg { color: var(--ink-2); }
-
   .turn-foot {
     display: flex;
     gap: 12px;
@@ -477,7 +620,6 @@
     color: var(--ink-3);
     font-variant-numeric: tabular-nums;
   }
-
   .threat {
     color: var(--red);
     font-family: var(--mono);
@@ -486,7 +628,6 @@
     align-items: center;
     gap: 5px;
   }
-
   .reasoning {
     font-size: 12px;
     color: var(--ink-3);
@@ -495,7 +636,6 @@
     padding-left: 9px;
     line-height: 1.45;
   }
-
   .settled-bar {
     margin: 10px 18px 2px;
     padding: 10px 14px;
@@ -512,388 +652,470 @@
   .tcol.wiped .settled-bar { background: var(--red-soft); color: var(--red); }
   .tcol.intact .settled-bar { background: var(--green-soft); color: var(--green); }
 
-  /* ---------- reasoning list ---------- */
-  .why {
-    background: var(--card);
-    border: 1px solid var(--rule);
-    border-left: 3px solid var(--green);
-    border-radius: 4px;
-    padding: 20px 24px;
-    box-shadow: var(--shadow);
-  }
-  .why ol { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 9px; }
-  .why li { color: var(--ink-2); line-height: 1.5; font-size: 14px; }
-  .why li::marker { color: var(--amber); font-family: var(--mono); font-size: 12px; }
-
-  /* ---------- settlement ---------- */
-  .chain {
+  .settlement-card {
+    padding: 16px 18px;
     display: flex;
-    flex-wrap: wrap;
-    gap: 12px 28px;
-    align-items: baseline;
-    background: var(--card);
-    border: 1px solid var(--rule);
-    border-radius: 4px;
-    padding: 18px 22px;
-    box-shadow: var(--shadow);
-    font-family: var(--mono);
-    font-size: 12.5px;
-    color: var(--ink-2);
-  }
-  .chain a { color: var(--amber); text-decoration: none; border-bottom: 1px solid currentColor; word-break: break-all; }
-  .chain a:hover, .chain a:focus-visible { color: var(--ink); }
-
-  footer {
-    border-top: 1px solid var(--rule);
-    padding-top: 18px;
-    font-family: var(--mono);
-    font-size: 11.5px;
-    color: var(--ink-3);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 22px;
-  }
-
-  /* ---------- vendor switcher ---------- */
-  .tabs {
-    display: flex;
+    flex-direction: column;
     gap: 6px;
-    flex-wrap: wrap;
-    border-bottom: 1px solid var(--rule);
-    padding-bottom: 0;
   }
-  .tab {
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: .04em;
-    padding: 9px 15px;
-    border: 1px solid var(--rule);
-    border-bottom: none;
-    border-radius: 4px 4px 0 0;
-    background: transparent;
-    color: var(--ink-3);
-    cursor: pointer;
-    margin-bottom: -1px;
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-  }
-  .tab:hover { color: var(--ink); }
-  .tab[aria-selected="true"] {
-    background: var(--card);
-    color: var(--ink);
-    border-top: 2px solid var(--amber);
-  }
-  .tab .tab-delta {
-    font-variant-numeric: tabular-nums;
-    color: var(--green);
-    font-size: 11px;
-  }
-
-  .engine-tag {
-    font-family: var(--mono);
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 3px;
-    background: var(--amber-soft);
-    color: var(--amber);
-  }
-
-  :focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+  .settlement-card .memory-k { margin-bottom: 0; }
 
   .empty {
-    padding: 40px;
-    text-align: center;
     color: var(--ink-3);
-    font-family: var(--mono);
-    font-size: 13px;
-    line-height: 1.7;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .home-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  @media (max-width: 760px) {
+    .wrap { padding: 28px 16px 80px; }
+    .controls { gap: 8px; }
+    .field { width: 100%; justify-content: space-between; }
+    select { width: 100%; }
   }
 </style>
-
+</head>
+<body>
 <div class="wrap">
-  <div class="tabs" id="tabs" role="tablist" hidden></div>
-  <div id="app">
-    <div class="empty">Loading comparison…</div>
-  </div>
-</div>
+  <nav class="site-nav">
+    <div class="brandmark"><span class="mark">G</span> grudge</div>
+    <div class="nav-links">
+      <a href="#home" id="navHome">Home</a>
+      <a href="#live" id="navLive">Live Demo</a>
+    </div>
+  </nav>
 
-<script>
-const FALLBACK_NOTE = `Run <code>grudge compare --vendor datadog --offline --export</code> then reload.`;
+  <section class="page masthead" id="homePage">
+    <div class="eyebrow">Renewal negotiation · live memory</div>
+    <h1>The same renewal, <em>twice</em>.<br>Once with a memory.</h1>
+    <p class="standfirst">
+      Grudge is a renewal negotiator that remembers what happened last cycle, then
+      uses that memory to change the next deal it makes.
+    </p>
+    <div class="meta">
+      <span>Memory <b>Sibyl · load-bearing</b></span>
+      <span>Settlement <b>Base or Virtuals ACP</b></span>
+      <span>Mode <b>Live negotiation</b></span>
+    </div>
+    <div class="home">
+      <div class="home-panel">
+        <div class="home-kicker">What it does</div>
+        <p class="home-copy">
+          It negotiates SaaS renewals twice: once blind, once with a vendor dossier
+          loaded from memory. The live page shows the actual transcript, the remembered
+          facts, and the price difference in real time.
+        </p>
+        <div class="home-actions">
+          <a class="home-cta primary" href="#live">Open live demo</a>
+          <a class="home-cta" href="#live">See the negotiation</a>
+        </div>
+      </div>
+      <div class="feature-grid">
+        <div class="feature">
+          <h3>Memory</h3>
+          <p>Stores what moved each vendor, what failed, and whether their threats were bluff.</p>
+        </div>
+        <div class="feature">
+          <h3>Negotiation</h3>
+          <p>Runs the same renewal with and without memory so the difference is visible, not implied.</p>
+        </div>
+        <div class="feature">
+          <h3>Settlement</h3>
+          <p>Hands the agreed deal to Base Sepolia USDC or Virtuals ACP once the price is fixed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-function money(n, dp) {
-  if (n === null || n === undefined) return "—";
-  return "$" + Number(n).toLocaleString("en-US", {
-    minimumFractionDigits: dp || 0, maximumFractionDigits: dp || 0
-  });
-}
-function esc(s) {
-  return String(s == null ? "" : s).replace(/[&<>"']/g, c => (
-    {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]
-  ));
-}
-
-function renderTurns(side, vendorName) {
-  let html = "";
-  let round = 0;
-  for (const t of side.turns) {
-    if (t.speaker === "buyer" && t.round !== round) {
-      round = t.round;
-      html += `<div class="round-rule">Round ${round}</div>`;
-    }
-    const who = t.speaker === "buyer" ? "Grudge" : vendorName;
-    const chip = t.tactic ? `<span class="tactic-chip">${esc(t.tactic)}</span>` : "";
-    const offer = t.offer
-      ? `<span>${t.speaker === "buyer" ? "offers" : "quotes"} ${money(t.offer)}</span>` : "";
-    const threat = t.threat
-      ? `<span class="threat">&#9888; threatens to walk</span>` : "";
-    const reason = t.reasoning
-      ? `<div class="reasoning">${esc(t.reasoning)}</div>` : "";
-    html += `
-      <div class="turn ${t.speaker}">
-        <div class="turn-who">${esc(who)}${chip}</div>
-        <div class="turn-msg">${esc(t.message)}</div>
-        ${(offer || threat) ? `<div class="turn-foot">${offer}${threat}</div>` : ""}
-        ${reason}
-      </div>`;
-  }
-  const outcome = side.agreed
-    ? `<div class="settled-bar"><span>Settled</span><span>${money(side.settled)} &middot; ${side.rounds} rounds</span></div>`
-    : `<div class="settled-bar"><span>No deal</span><span>${side.rounds} rounds</span></div>`;
-  return html + outcome;
-}
-
-function render(d) {
-  const wm = d.withMemory, wo = d.withoutMemory;
-  const dossier = d.dossier || {};
-  const ledger = dossier.tactic_ledger || {};
-  const bluff = (dossier.bluff_ledger || {}).walkaway_threat;
-  const floor = dossier.floor_estimate;
-  const curve = dossier.concession_curve || {};
-  const pct = (d.delta && wo.settled) ? (d.delta / wo.settled * 100) : 0;
-  const offList = (s) => s ? ((d.listPrice - s) / d.listPrice * 100).toFixed(1) + "% off list" : "—";
-
-  const rows = Object.entries(ledger).sort((a, b) =>
-    (a[1].avg_delta_pct || 0) - (b[1].avg_delta_pct || 0));
-
-  const diff = [
-    ["opening ask", `<span class="num">${money(wo.openingAsk)}</span>`,
-                    `<span class="num">${money(wm.openingAsk)}</span>`],
-    ["opened with", `<strong>${esc(wo.openedWith || "—")}</strong>`,
-                    `<strong>${esc(wm.openedWith || "—")}</strong>`],
-    ["levers skipped", wo.banned.length ? esc(wo.banned.join(", ")) : "none",
-                       wm.banned.length ? `<strong>${esc(wm.banned.join(", "))}</strong>` : "none"],
-    ["believed floor", `<span class="num">—</span>`,
-                       `<span class="num">${wm.floorEstimate ? money(wm.floorEstimate) : "—"}</span>`],
-    ["walkaway threats faced", `<span class="num">${wo.threats}</span>`,
-                               `<span class="num">${wm.threats}</span>`],
-    ["held firm on threat",
-      `<span class="flag ${wo.holdFirm ? "yes" : "no"}">${wo.holdFirm ? "yes" : "no"}</span>`,
-      `<span class="flag ${wm.holdFirm ? "yes" : "no"}">${wm.holdFirm ? "yes" : "no"}</span>`],
-    ["rounds used", `<span class="num">${wo.rounds}</span>`,
-                    `<span class="num">${wm.rounds}</span>`],
-  ];
-
-  const eng = d.engine || {};
-  const engineText = eng.buyer
-    ? (eng.buyer.startsWith("scripted")
-        ? "offline scripted counterparty"
-        : `${eng.buyer.split(":")[0]} vs ${(eng.vendor || "").split(":")[0]}`)
-    : null;
-  const engineTag = engineText
-    ? `<span class="engine-tag">${esc(engineText)}</span>` : "";
-
-  const settled = d.settlement || {};
-  const chainHtml = settled.tx_hash
-    ? `<div class="chain">
-         <span><b>Settled on-chain</b></span>
-         <span>${esc(String(settled.amount_usdc))} USDC &middot; Base Sepolia</span>
-         <span>tx <a href="${esc(settled.explorer_url || "#")}" target="_blank" rel="noopener">${esc(settled.tx_hash)}</a></span>
-       </div>`
-    : `<div class="chain"><span>${esc(settled.note || "Settlement not run for this export (use --no-settle to skip, or set BASE_PRIVATE_KEY to post a real transfer).")}</span></div>`;
-
-  document.getElementById("app").innerHTML = `
+  <div class="page" id="livePage" hidden>
     <header class="masthead">
-      <div class="eyebrow">Renewal negotiation &middot; ${esc(d.vendor)}</div>
+      <div class="eyebrow">Renewal negotiation · live memory</div>
       <h1>The same renewal, <em>twice</em>.<br>Once with a memory.</h1>
       <p class="standfirst">
-        Grudge negotiated this contract before and wrote down what happened: which
-        levers moved ${esc(d.vendor)}, which ones they ignored, and whether their
-        threat to walk was ever real. Delete that file and the agent walks in blind.
+        Grudge negotiates a vendor, remembers what worked, and runs the same renewal
+        again with the dossier intact. The browser shows the actual turns as they happen.
       </p>
       <div class="meta">
-        <span>List price <b>${money(d.listPrice)}</b></span>
-        <span>Counterparty <b>autonomous vendor agent</b></span>
-        <span>Memory <b>Sibyl · SQLite + FTS5</b></span>
-        <span>Settlement <b>USDC on Base Sepolia</b></span>
-        ${engineTag}
+        <span>List price <b id="listPriceMeta">-</b></span>
+        <span>Counterparty <b id="vendorMeta">autonomous vendor agent</b></span>
+        <span>Run state <b id="phase">Idle</b></span>
+        <span>Mode <b id="mode">Offline</b></span>
+      </div>
+      <div class="controls">
+        <label class="field">Vendor
+          <select id="vendor">
+            <option value="datadog">Datadog</option>
+            <option value="segment">Twilio Segment</option>
+            <option value="vercel">Vercel</option>
+          </select>
+        </label>
+        <label class="toggle"><input id="offline" type="checkbox" checked> Offline</label>
+        <label class="toggle"><input id="settle" type="checkbox"> Settle</label>
+        <button class="run" id="run">Run Negotiation</button>
+        <div class="statusline"><span class="dot" id="dot"></span><span id="status">Waiting</span></div>
       </div>
     </header>
 
     <div class="verdict">
-      <div class="verdict-grid">
-        <div class="col wiped">
-          <div class="col-label"><span class="dot"></span>Memory deleted</div>
-          <div class="price">${money(wo.settled)}</div>
-          <div class="price-note">${offList(wo.settled)} &middot; ${wo.rounds} rounds</div>
-        </div>
-        <div class="divider">
-          <div class="delta-stack">
-            <div class="delta-label">Memory saved</div>
-            <div class="delta-value">${money(d.delta)}</div>
-            <div class="delta-pct">${pct.toFixed(1)}% cheaper</div>
-          </div>
-        </div>
-        <div class="col intact">
-          <div class="col-label"><span class="dot"></span>Memory intact</div>
-          <div class="price">${money(wm.settled)}</div>
-          <div class="price-note">${offList(wm.settled)} &middot; ${wm.rounds} rounds</div>
+    <div class="verdict-grid">
+      <div class="col wiped">
+        <div class="col-label"><span class="dot-mini"></span>Memory deleted</div>
+        <div class="price" id="coldPrice">-</div>
+        <div class="price-note" id="coldNote">Cold start</div>
+      </div>
+      <div class="divider">
+        <div class="delta-stack">
+          <div class="delta-label">Memory saved</div>
+          <div class="delta-value" id="delta">-</div>
+          <div class="delta-pct" id="deltaPct">-</div>
         </div>
       </div>
-      <div class="diff">
-        ${diff.map(([k, l, r]) => `
-          <div class="diff-row">
-            <div class="diff-cell l">${l}</div>
-            <div class="diff-key">${esc(k)}</div>
-            <div class="diff-cell r">${r}</div>
-          </div>`).join("")}
+      <div class="col intact">
+        <div class="col-label"><span class="dot-mini"></span>Memory intact</div>
+        <div class="price" id="warmPrice">-</div>
+        <div class="price-note" id="warmNote">Warm run</div>
       </div>
+    </div>
+    <div class="diff" id="diff"></div>
     </div>
 
     <section>
-      <h2><span class="n">01</span>What it wrote down last cycle</h2>
-      <p class="lede">
-        One dossier per vendor in Sibyl's entity tier, rebuilt after every
-        settlement. This is the entire input to the second negotiation — there is
-        no conversation history carried over.
-      </p>
+      <h2><span class="n">01</span>What it remembered</h2>
+      <p class="lede">One vendor dossier, loaded from Sibyl, then used to change the opening move and the order of tactics.</p>
       <div class="panel">
-        <div class="table-scroll">
-          <table>
-            <thead>
-              <tr><th>Lever</th><th>Tried</th><th>Moved them</th><th>Avg effect</th><th>Verdict</th></tr>
-            </thead>
-            <tbody>
-              ${rows.map(([k, v]) => `
-                <tr>
-                  <td>${esc(k.replace(/_/g, " "))}</td>
-                  <td>${v.tried || 0}</td>
-                  <td>${v.moved || 0}</td>
-                  <td>${(v.avg_delta_pct || 0).toFixed(1)}%</td>
-                  <td><span class="verdict-tag v-${esc(v.verdict)}">${esc(v.verdict)}</span></td>
-                </tr>`).join("")}
-            </tbody>
-          </table>
-        </div>
-        <div class="findings">
-          ${bluff ? `
-            <div class="finding">
-              <div class="finding-k">Walkaway threat</div>
-              <div class="finding-v" style="color:var(--red)">${esc(bluff.verdict)}</div>
-              <div class="finding-note">${bluff.threatened} threatened, ${bluff.executed} executed. ${esc(bluff.evidence || "")}</div>
-            </div>` : ""}
-          ${floor ? `
-            <div class="finding">
-              <div class="finding-k">Believed floor</div>
-              <div class="finding-v" style="color:var(--amber)">${money(floor.value)}</div>
-              <div class="finding-note">${Math.round((floor.confidence || 0) * 100)}% confidence — ${esc(floor.basis || "")}</div>
-            </div>` : ""}
-          ${curve.rounds_to_first_move ? `
-            <div class="finding">
-              <div class="finding-k">Concession curve</div>
-              <div class="finding-v">R${curve.rounds_to_first_move}</div>
-              <div class="finding-note">Ignores the first ${curve.rounds_to_first_move} round(s); average step ${(curve.avg_step_pct || 0).toFixed(1)}%.</div>
-            </div>` : ""}
+        <div class="memory-grid" id="facts">
+          <div class="memory-card full"><div class="memory-k">Loading</div><div class="memory-v">Run once to seed the dossier.</div></div>
         </div>
       </div>
     </section>
 
     <section>
-      <h2><span class="n">02</span>How that changed the opening move</h2>
+      <h2><span class="n">02</span>Why the opening changed</h2>
       <div class="why">
-        <ol>${wm.rationale.map(r => `<li>${esc(r)}</li>`).join("")}</ol>
+        <ol id="rationale"><li class="placeholder">Run one negotiation to see why the opening changed.</li></ol>
       </div>
     </section>
 
     <section>
-      <h2><span class="n">03</span>Both transcripts, side by side</h2>
-      <p class="lede">
-        Same vendor agent, same secret floor, same round budget. The only
-        difference is whether the dossier above was readable.
-      </p>
+      <h2><span class="n">03</span>Both transcripts</h2>
+      <p class="lede">Same vendor, same round budget. The difference is whether the remembered history was readable.</p>
       <div class="transcripts">
         <div class="tcol wiped">
           <div class="thead">
             <span class="thead-name">Memory deleted</span>
-            <span class="thead-price">${money(wo.settled)}</span>
+            <span class="thead-price" id="coldHeadPrice">-</span>
           </div>
-          <div class="tbody">${renderTurns(wo, d.vendor)}</div>
+          <div class="tbody" id="coldTurns"><div class="empty">Cold-start transcript appears here.</div></div>
         </div>
         <div class="tcol intact">
           <div class="thead">
             <span class="thead-name">Memory intact</span>
-            <span class="thead-price">${money(wm.settled)}</span>
+            <span class="thead-price" id="warmHeadPrice">-</span>
           </div>
-          <div class="tbody">${renderTurns(wm, d.vendor)}</div>
+          <div class="tbody" id="warmTurns"><div class="empty">Memory-led transcript appears here.</div></div>
         </div>
       </div>
     </section>
 
     <section>
       <h2><span class="n">04</span>Settlement</h2>
-      ${chainHtml}
+      <div class="panel">
+        <div class="settlement-card" id="settlement">
+          <div class="memory-k">Off</div>
+          <div class="memory-v">No settlement will run until you enable it.</div>
+        </div>
+      </div>
     </section>
+  </div>
+</div>
 
-    <footer>
-      <span>grudge</span>
-      <span>Sibyl Memory · Virtuals ACP · Base Sepolia</span>
-      <span>Delete the memory layer and the price moves.</span>
-    </footer>`;
-}
+<script>
+const $ = (id) => document.getElementById(id);
+const money = (value) => value == null ? "-" : new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 0
+}).format(value);
 
-function showError() {
-  document.getElementById("app").innerHTML =
-    `<div class="empty">No comparison export found.<br><br>${FALLBACK_NOTE}<br><br>
-     Then serve this folder: <code>python3 -m http.server -d web 8000</code></div>`;
-}
+const tacticNames = {
+  competitor_quote: "Competitor quote",
+  budget_freeze: "Hard budget",
+  multi_year_commit: "Multi-year",
+  payment_terms: "Prepay",
+  volume_tier: "Volume expansion",
+  downgrade_threat: "Downgrade",
+  case_study_trade: "Case study",
+  end_of_quarter: "Quarter end"
+};
 
-function buildTabs(runs, activeId, onPick) {
-  const bar = document.getElementById("tabs");
-  if (runs.length < 2) { bar.hidden = true; return; }
-  bar.hidden = false;
-  bar.innerHTML = "";
-  for (const run of runs) {
-    const b = document.createElement("button");
-    b.className = "tab";
-    b.type = "button";
-    b.setAttribute("role", "tab");
-    b.setAttribute("aria-selected", String(run.vendorId === activeId));
-    b.innerHTML = `<span>${esc(run.vendor)}</span>` +
-      (run.delta ? `<span class="tab-delta">-${money(run.delta)}</span>` : "");
-    b.addEventListener("click", () => onPick(run));
-    bar.appendChild(b);
+let source = null;
+let activeView = "home";
+
+function showView(view) {
+  activeView = view === "live" ? "live" : "home";
+  $("homePage").hidden = activeView !== "home";
+  $("livePage").hidden = activeView !== "live";
+  if (activeView === "home") {
+    $("navHome").setAttribute("aria-current", "page");
+    $("navLive").removeAttribute("aria-current");
+  } else {
+    $("navLive").setAttribute("aria-current", "page");
+    $("navHome").removeAttribute("aria-current");
+  }
+  document.title = activeView === "live" ? "Grudge Live Demo" : "Grudge";
+  if (activeView !== "live" && source) {
+    source.close();
+    source = null;
+    setRunning(false, "Waiting");
+  }
+  if (activeView === "live") {
+    window.scrollTo({ top: 0, behavior: "auto" });
   }
 }
 
-function loadRun(run, runs) {
-  fetch("runs/" + run.file)
-    .then(r => { if (!r.ok) throw new Error("missing"); return r.json(); })
-    .then(d => {
-      buildTabs(runs, d.vendorId, other => loadRun(other, runs));
-      render(d);
-      history.replaceState(null, "", "#" + d.vendorId);
-    })
-    .catch(showError);
+function syncViewFromHash() {
+  const hash = (location.hash || "#home").toLowerCase();
+  const view = hash === "#live" ? "live" : "home";
+  if (view === "home" && location.hash && location.hash !== "#home") {
+    history.replaceState(null, "", "#home");
+  }
+  showView(view);
 }
 
-fetch("runs/index.json")
-  .then(r => { if (!r.ok) throw new Error("no index"); return r.json(); })
-  .then(idx => {
-    const runs = idx.runs || [];
-    if (!runs.length) return showError();
-    const wanted = decodeURIComponent(location.hash.replace("#", ""));
-    const pick = runs.find(r => r.vendorId === wanted) || runs[0];
-    loadRun(pick, runs);
-  })
-  .catch(showError);
+function setRunning(running, text) {
+  $("run").disabled = running;
+  $("run").textContent = running ? "Running..." : "Run Negotiation";
+  $("dot").classList.toggle("live", running);
+  $("status").textContent = text || (running ? "Running" : "Waiting");
+}
+
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, (char) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;"
+  }[char]));
+}
+
+function clearUi() {
+  $("coldPrice").textContent = "-";
+  $("warmPrice").textContent = "-";
+  $("coldHeadPrice").textContent = "-";
+  $("warmHeadPrice").textContent = "-";
+  $("delta").textContent = "-";
+  $("deltaPct").textContent = "-";
+  $("coldNote").textContent = "Cold start";
+  $("warmNote").textContent = "Warm run";
+  $("facts").innerHTML = '<div class="memory-card"><div class="memory-k">Loading</div><div class="memory-v">Run once to seed the dossier.</div></div>';
+  $("rationale").innerHTML = "";
+  $("coldTurns").innerHTML = '<div class="empty">Cold-start transcript appears here.</div>';
+  $("warmTurns").innerHTML = '<div class="empty">Memory-led transcript appears here.</div>';
+  $("settlement").innerHTML = '<div class="memory-k">Off</div><div class="memory-v">No settlement will run until you enable it.</div>';
+  $("diff").innerHTML = "";
+}
+
+function diffHtml(d) {
+  const wo = d.withoutMemory;
+  const wm = d.withMemory;
+  const rows = [
+    ["opening ask", money(wo.openingAsk), money(wm.openingAsk)],
+    ["opened with", wo.openedWith || "—", wm.openedWith || "—"],
+    ["believed floor", "—", wm.floorEstimate ? money(wm.floorEstimate) : "—"],
+    ["walkaway threats", String(wo.threats), String(wm.threats)],
+    ["held firm on threat", wo.holdFirm ? "yes" : "no", wm.holdFirm ? "yes" : "no"],
+    ["rounds used", String(wo.rounds), String(wm.rounds)]
+  ];
+  return rows.map(([k, l, r]) => `
+    <div class="diff-row">
+      <div class="diff-cell l">${escapeHtml(l)}</div>
+      <div class="diff-key">${escapeHtml(k)}</div>
+      <div class="diff-cell r">${escapeHtml(r)}</div>
+    </div>`).join("");
+}
+
+function planRow(label, value) {
+  return `<div class="memory-card"><div class="memory-k">${escapeHtml(label)}</div><div class="memory-v">${value}</div></div>`;
+}
+
+function renderFacts(dossier) {
+  if (!dossier) {
+    $("facts").innerHTML = '<div class="memory-card full"><div class="memory-k">Empty</div><div class="memory-v">No dossier is loaded yet. Run once to seed the memory.</div></div>';
+    return;
+  }
+  const ledger = dossier.tactic_ledger || {};
+  const works = Object.entries(ledger).filter(([, value]) => value.verdict === "WORKS").map(([key]) => tacticNames[key] || key);
+  const dead = Object.entries(ledger).filter(([, value]) => value.verdict === "DEAD").map(([key]) => tacticNames[key] || key);
+  const bluff = dossier.bluff_ledger?.walkaway_threat;
+  const floor = dossier.floor_estimate;
+  const cards = [];
+  cards.push(planRow("Works", works.length ? works.join(", ") : "None yet"));
+  cards.push(planRow("Skip", dead.length ? dead.join(", ") : "Nothing banned"));
+  if (bluff) cards.push(planRow("Walkaway", bluff.verdict));
+  if (floor) cards.push(planRow("Floor", `${money(floor.value)} at ${Math.round((floor.confidence || 0) * 100)}%`));
+  $("facts").innerHTML = cards.join("");
+}
+
+function renderRationale(items) {
+  $("rationale").innerHTML = items.length
+    ? items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")
+    : '<li class="placeholder">Run one negotiation to see why the opening changed.</li>';
+}
+
+function renderTurns(side, result) {
+  const target = side === "cold" ? $("coldTurns") : $("warmTurns");
+  target.innerHTML = "";
+  result.turns.forEach((turn) => {
+    const node = document.createElement("div");
+    node.className = `turn ${turn.speaker}`;
+    const tactic = turn.tactic ? `<span class="tactic-chip">${escapeHtml(tacticNames[turn.tactic] || turn.tactic)}</span>` : "";
+    const threat = turn.threat ? '<span class="threat">walkaway threat</span>' : "";
+    node.innerHTML = `
+      <div class="turn-who">
+        <span>${escapeHtml(turn.speaker)} · round ${turn.round}</span>
+        <span>${turn.offer ? money(turn.offer) : ""}</span>
+      </div>
+      <div class="turn-msg">${escapeHtml(turn.message)}</div>
+      <div class="turn-foot">
+        ${tactic}
+        ${threat}
+      </div>
+      ${turn.reasoning ? `<div class="reasoning">${escapeHtml(turn.reasoning)}</div>` : ""}
+    `;
+    target.appendChild(node);
+  });
+  const settled = result.settled;
+  const bar = document.createElement("div");
+  bar.className = "settled-bar";
+  bar.innerHTML = `<span>Settled</span><span>${money(settled)} &middot; ${result.rounds} rounds</span>`;
+  target.appendChild(bar);
+}
+
+function renderSettlement(settlement) {
+  if (!settlement || !Object.keys(settlement).length) return;
+  if (settlement.mode === "acp") {
+    $("settlement").innerHTML = `
+      <div class="memory-k">Virtuals ACP</div>
+      <div class="memory-v">Job ${escapeHtml(settlement.job_id || "-")} ${settlement.funded ? "funded" : "created"} on chain ${escapeHtml(String(settlement.chain_id || "unknown"))}. ${escapeHtml(settlement.note || "")}</div>
+    `;
+    return;
+  }
+  if (settlement.tx_hash) {
+    $("settlement").innerHTML = `
+      <div class="memory-k">Base Sepolia</div>
+      <div class="memory-v">${escapeHtml(String(settlement.amount_usdc))} USDC sent. <a href="${escapeHtml(settlement.explorer_url || "#")}" target="_blank" rel="noopener">View transaction</a>.</div>
+    `;
+    return;
+  }
+  $("settlement").innerHTML = `
+    <div class="memory-k">Skipped</div>
+    <div class="memory-v">${escapeHtml(settlement.note || "Settlement was not run.")}</div>
+  `;
+}
+
+function renderResult(data) {
+  const result = data.result;
+  const side = data.side;
+  const priceId = side === "cold" ? "coldPrice" : "warmPrice";
+  const headId = side === "cold" ? "coldHeadPrice" : "warmHeadPrice";
+  const noteId = side === "cold" ? "coldNote" : "warmNote";
+  $(priceId).textContent = money(result.settled);
+  $(headId).textContent = money(result.settled);
+  $(noteId).textContent = result.holdFirm ? "Held firm" : "Broke early";
+}
+
+function run() {
+  if (source) source.close();
+  clearUi();
+  setRunning(true, "Starting");
+  const params = new URLSearchParams({
+    vendor: $("vendor").value,
+    offline: $("offline").checked ? "1" : "0",
+    settle: $("settle").checked ? "1" : "0",
+    rounds: "6"
+  });
+  source = new EventSource(`/api/compare?${params}`);
+
+  source.addEventListener("start", (event) => {
+    const data = JSON.parse(event.data);
+    $("phase").textContent = "Starting";
+    $("mode").textContent = data.offline ? "Offline" : "Live AI";
+    $("vendorMeta").textContent = data.vendor;
+    $("listPriceMeta").textContent = money(data.listPrice);
+  });
+
+  source.addEventListener("phase", (event) => {
+    const data = JSON.parse(event.data);
+    $("phase").textContent = data.label;
+    setRunning(true, data.label);
+  });
+
+  source.addEventListener("dossier", (event) => renderFacts(JSON.parse(event.data).dossier));
+  source.addEventListener("plan", (event) => {
+    const data = JSON.parse(event.data);
+    if (data.side === "cold") {
+      $("coldNote").innerHTML = `Open ${money(data.plan.opening_anchor)} · target ${money(data.plan.target_price)}`;
+    } else {
+      $("warmNote").innerHTML = `Open ${money(data.plan.opening_anchor)} · target ${money(data.plan.target_price)}`;
+      renderRationale(data.plan.rationale || []);
+    }
+  });
+
+  source.addEventListener("turn", (event) => {
+    const data = JSON.parse(event.data);
+    const target = data.side === "cold" ? $("coldTurns") : $("warmTurns");
+    if (target.querySelector(".empty")) target.innerHTML = "";
+    const node = document.createElement("div");
+    node.className = `turn ${data.speaker}`;
+    const tactic = data.tactic ? `<span class="tactic-chip">${escapeHtml(tacticNames[data.tactic] || data.tactic)}</span>` : "";
+    const threat = data.threat ? '<span class="threat">walkaway threat</span>' : "";
+    node.innerHTML = `
+      <div class="turn-who">
+        <span>${escapeHtml(data.speaker)} · round ${data.round}</span>
+        <span>${data.offer ? money(data.offer) : ""}</span>
+      </div>
+      <div class="turn-msg">${escapeHtml(data.message)}</div>
+      <div class="turn-foot">${tactic}${threat}</div>
+      ${data.reasoning ? `<div class="reasoning">${escapeHtml(data.reasoning)}</div>` : ""}
+    `;
+    target.appendChild(node);
+  });
+
+  source.addEventListener("result", (event) => {
+    const data = JSON.parse(event.data);
+    renderResult(data);
+  });
+
+  source.addEventListener("settlement", (event) => {
+    renderSettlement(JSON.parse(event.data).settlement);
+  });
+
+  source.addEventListener("done", (event) => {
+    const data = JSON.parse(event.data);
+    $("delta").textContent = money(data.delta);
+    $("deltaPct").textContent = data.delta && data.withoutMemory?.settled
+      ? `${((data.delta / data.withoutMemory.settled) * 100).toFixed(1)}% cheaper`
+      : "-";
+    renderSettlement(data.settlement);
+    setRunning(false, "Complete");
+    source.close();
+  });
+
+  source.addEventListener("error", () => {
+    setRunning(false, "Error");
+    if (source) source.close();
+  });
+}
+
+$("run").addEventListener("click", run);
+window.addEventListener("hashchange", syncViewFromHash);
+syncViewFromHash();
+setRunning(false, "Waiting");
 </script>
+</body>
+</html>

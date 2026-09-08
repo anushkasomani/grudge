@@ -31,8 +31,6 @@ from grudge.settlement import AcpSettlement, BaseSettlement
 load_dotenv()
 console = Console()
 
-DEFAULT_DB = "memory_store/grudge.db"
-
 
 def _providers(offline: bool, persona, plan):
     """Pick the LLM pair, or the deterministic scripted counterparty."""
@@ -65,6 +63,17 @@ def _report_settlement(settlement: dict) -> None:
     if not settlement:
         return
     if settlement.get("ok"):
+        if settlement.get("mode") == "acp":
+            status = "funded" if settlement.get("funded") else "created"
+            console.print(Text.assemble(
+                ("  ✓ Settled through Virtuals ACP: ", "bold green"),
+                (f"job {settlement.get('job_id')} {status}", "bold"),
+            ))
+            console.print(
+                f"    [dim]{settlement.get('amount_usdc')} USDC escrow "
+                f"on chain {settlement.get('chain_id', 'unknown')}[/dim]"
+            )
+            return
         console.print(Text.assemble(
             ("  ✓ Settled on Base Sepolia: ", "bold green"),
             (f"{settlement.get('amount_usdc')} USDC", "bold"),
@@ -234,8 +243,8 @@ def cmd_wipe(args) -> int:
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="grudge", description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--db", default=os.getenv("GRUDGE_DB", DEFAULT_DB),
-                   help="path to the Sibyl memory store")
+    p.add_argument("--db", default=os.getenv("SIBYL_MEMORY_DB"),
+                   help="optional path override for the Sibyl memory store")
     sub = p.add_subparsers(dest="command", required=True)
 
     def common(sp, vendor_required=True):

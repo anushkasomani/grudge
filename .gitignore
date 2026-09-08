@@ -2,9 +2,11 @@
 __pycache__/
 *.pyc
 .env
-memory_store/*.db
-memory_store/*.db-wal
-memory_store/*.db-shm
+memory_store/
+.sibyl-memory/
+*.db
+*.db-wal
+*.db-shm
 .pytest_cache/
 node_modules/
 

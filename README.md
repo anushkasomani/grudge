@@ -41,25 +41,27 @@ With an empty store, every branch falls through to the naive default.
 
 ## The stack
 
-- **[Sibyl Memory](https://docs.sibyllabs.org/memory)** — local SQLite + FTS5, no
-  vector DB. Vendor dossiers and per-negotiation records live in the WARM entity
-  tier; round-by-round agent reasoning goes to the COLD journal.
+- **[Sibyl Memory](https://docs.sibyllabs.org/memory)** — the agent's persisted
+  memory layer. Grudge uses the Sibyl SDK's standard local-first store
+  (`~/.sibyl-memory/memory.db` by default), so vendor dossiers and negotiation
+  records survive fresh app/CLI sessions. Vendor dossiers and per-negotiation
+  records live in the WARM entity tier; round-by-round agent reasoning goes to
+  the COLD journal.
 - **Virtuals ACP** — the vendor is an autonomous counterparty with its own goals,
-  a secret pricing floor and a bluff disposition, modelled on the GAME
-  goal/constraint/persona framing. Agreed deals settle through ACP's escrowed
-  commerce rail when credentials are present.
+  a secret pricing floor and a bluff disposition. Agreed deals settle through
+  ACP's escrowed commerce rail when credentials and a provider offering are
+  present.
 - **Base Sepolia** — settlement is a real ERC-20 USDC transfer with a real
   transaction hash, not a simulated "payment sent".
 
 ### A note on where negotiation actually happens
 
-ACP's four phases are Request → Negotiation → Transaction → Evaluation, but its
-"Negotiation" phase is escrow-terms agreement: price is set at job creation and
-the counterparty accepts or rejects. It is not a free-form haggling channel. So
-the multi-turn haggling runs agent-to-agent above that layer, and only the
-**agreed** deal is handed down to ACP to settle. If Service Registry approval
-isn't in place, settlement falls back to a direct USDC transfer on Base Sepolia —
-still a real on-chain transaction.
+ACP is an agent-commerce rail, not this app's haggling layer. In ACP, a client
+creates a job, the provider sets a budget, the client funds escrow, and the job
+is submitted/evaluated. The SaaS renewal price is already fixed by grudge before
+ACP runs, so only the **agreed** deal is handed down to ACP as the payment job.
+If a provider offering is not configured, settlement falls back to a direct USDC
+transfer on Base Sepolia — still a real on-chain transaction.
 
 ## Quick start
 
@@ -87,13 +89,12 @@ distinct agents rather than one model arguing with itself.
 ### Viewing the web demo
 
 ```bash
-./.venv/bin/python -m grudge.cli compare --vendor datadog --export
-python3 -m http.server -d web 8000     # then open http://localhost:8000
+./.venv/bin/python web/server.py       # then open http://127.0.0.1:8000
 ```
 
-Each vendor exports to `web/runs/<vendor>.json` plus an `index.json`, so running
-`compare` for several vendors gives you a tab per vendor instead of overwriting
-the previous result.
+The browser runs the same comparison live through server-sent events: if a
+vendor has no dossier yet, it seeds memory first, then streams memory-wiped and
+memory-intact negotiations turn by turn.
 
 ### Commands
 
@@ -103,7 +104,7 @@ the previous result.
 | `negotiate --vendor X` | One negotiation; `--no-memory` to negotiate blind |
 | `compare --vendor X` | **The demo.** Same renewal twice, side by side |
 | `dossier [--vendor X]` | Shows what grudge has learned |
-| `wipe-memory` | Deletes the store |
+| `wipe-memory` | Clears the Sibyl memory used by the demo |
 
 ## What gets remembered
 

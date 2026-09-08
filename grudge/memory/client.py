@@ -14,6 +14,7 @@ Two things this layer guarantees, both of which the demo depends on:
 """
 from __future__ import annotations
 
+import os
 import shutil
 import tempfile
 from pathlib import Path
@@ -25,7 +26,12 @@ from sibyl_memory_client.exceptions import NotFoundError
 CAT_DOSSIER = "vendor_dossier"
 CAT_NEGOTIATION = "negotiation_record"
 
-DEFAULT_DB = Path("memory_store/grudge.db")
+DEFAULT_SIBYL_DB = Path("~/.sibyl-memory/memory.db")
+
+
+def sibyl_db_path(db_path: str | Path | None = None) -> Path:
+    """Resolve the Sibyl memory database used by normal Grudge sessions."""
+    return Path(db_path or os.getenv("SIBYL_MEMORY_DB") or DEFAULT_SIBYL_DB).expanduser()
 
 
 class GrudgeMemory:
@@ -33,7 +39,7 @@ class GrudgeMemory:
 
     def __init__(
         self,
-        db_path: str | Path = DEFAULT_DB,
+        db_path: str | Path | None = None,
         *,
         tenant_id: str = "grudge-acme",
         enabled: bool = True,
@@ -42,7 +48,7 @@ class GrudgeMemory:
         self._tempdir: str | None = None
 
         if enabled:
-            path = Path(db_path).expanduser()
+            path = sibyl_db_path(db_path)
             path.parent.mkdir(parents=True, exist_ok=True)
         else:
             # A real Sibyl DB that is guaranteed empty: same code path,
