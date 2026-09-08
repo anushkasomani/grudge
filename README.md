@@ -94,7 +94,9 @@ distinct agents rather than one model arguing with itself.
 
 The browser runs the same comparison live through server-sent events: if a
 vendor has no dossier yet, it seeds memory first, then streams memory-wiped and
-memory-intact negotiations turn by turn.
+memory-intact negotiations turn by turn. After seeding, the server closes and
+reopens Sibyl Memory before the memory-intact run, so the recall path is a fresh
+session read from persisted memory.
 
 ### Commands
 

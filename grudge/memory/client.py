@@ -27,6 +27,7 @@ CAT_DOSSIER = "vendor_dossier"
 CAT_NEGOTIATION = "negotiation_record"
 
 DEFAULT_SIBYL_DB = Path("~/.sibyl-memory/memory.db")
+DEFAULT_TENANT_ID = "grudge-acme"
 
 
 def sibyl_db_path(db_path: str | Path | None = None) -> Path:
@@ -41,7 +42,7 @@ class GrudgeMemory:
         self,
         db_path: str | Path | None = None,
         *,
-        tenant_id: str = "grudge-acme",
+        tenant_id: str | None = None,
         enabled: bool = True,
     ) -> None:
         self.enabled = enabled
@@ -57,8 +58,8 @@ class GrudgeMemory:
             path = Path(self._tempdir) / "empty.db"
 
         self.db_path = path
-        self.client = MemoryClient.local(str(path), tenant_id=tenant_id)
-        self.tenant_id = tenant_id
+        self.tenant_id = tenant_id or os.getenv("SIBYL_TENANT_ID") or DEFAULT_TENANT_ID
+        self.client = MemoryClient.local(str(path), tenant_id=self.tenant_id)
 
     # ---------- vendor dossier (WARM entity tier) ----------
 

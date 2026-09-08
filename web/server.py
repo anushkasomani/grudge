@@ -89,6 +89,12 @@ def run_live_compare(handler: SimpleHTTPRequestHandler, query: dict[str, list[st
             )
             consolidate(memory, seed)
             event(handler, "seed_result", {"settled": seed.settled_price, "rounds": seed.rounds_used})
+            event(handler, "phase", {
+                "label": "Fresh session",
+                "detail": "Reopening Sibyl memory before recall",
+            })
+            memory.close()
+            memory = GrudgeMemory(enabled=True)
             dossier = memory.get_dossier(vendor_id)
 
         plan_warm = build_plan(
