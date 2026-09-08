@@ -69,14 +69,16 @@ def run_live_compare(handler: SimpleHTTPRequestHandler, query: dict[str, list[st
         })
 
         existing_dossier = memory.get_dossier(vendor_id)
+        prior_count = len(memory.past_negotiations(vendor_id))
         event(handler, "session", {
             "index": 1,
             "label": "Session 1",
             "detail": (
-                "Learning renewal and saving an updated dossier to Sibyl"
+                f"Loaded {prior_count} prior remembered negotiation(s), then saving this renewal to Sibyl"
                 if existing_dossier
                 else "First renewal with this vendor; writing the first Sibyl dossier"
             ),
+            "priorCount": prior_count,
         })
         seed_plan = build_plan(
             vendor_id,
@@ -101,17 +103,24 @@ def run_live_compare(handler: SimpleHTTPRequestHandler, query: dict[str, list[st
         event(handler, "session", {
             "index": 2,
             "label": "Session 2",
-            "detail": "Fresh process boundary: reopening Sibyl and recalling the persisted dossier",
+            "detail": "Fresh process boundary: reopening Sibyl and recalling all persisted vendor history",
         })
         memory.close()
         memory = GrudgeMemory(enabled=True)
         dossier = memory.get_dossier(vendor_id)
+        remembered = memory.past_negotiations(vendor_id)
+        event(handler, "memory_summary", {
+            "vendorId": vendor_id,
+            "priorCount": prior_count,
+            "totalCount": len(remembered),
+            "dossierNegotiations": len((dossier or {}).get("negotiations", [])),
+        })
 
         plan_warm = build_plan(
             vendor_id,
             persona.list_price,
             dossier,
-            memory.past_negotiations(vendor_id),
+            remembered,
         )
         plan_cold = build_plan(
             vendor_id,

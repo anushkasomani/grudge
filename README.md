@@ -93,10 +93,11 @@ distinct agents rather than one model arguing with itself.
 ```
 
 The browser runs a two-session story through server-sent events. Session 1
-negotiates a renewal and writes the updated vendor dossier to Sibyl. The server
-then closes and reopens Sibyl Memory before Session 2, where it shows the same
-vendor negotiated with memory wiped versus memory intact. That makes the
-fresh-session recall path visible on screen, not just implied by the code.
+loads any existing Sibyl history for the vendor, negotiates again, and writes the
+updated dossier back to Sibyl. The server then closes and reopens Sibyl Memory
+before Session 2, where it recalls the full persisted vendor history and shows
+the same vendor negotiated with memory wiped versus memory intact. That makes
+the fresh-session recall path visible on screen, not just implied by the code.
 
 ### Commands
 

@@ -817,7 +817,7 @@
 
     <section>
       <h2><span class="n">00</span>Two session demo</h2>
-      <p class="lede">Session 1 negotiates and writes the vendor memory to Sibyl. Session 2 starts fresh, reloads that memory, and changes the next negotiation.</p>
+      <p class="lede">Session 1 loads any existing Sibyl history for this vendor, negotiates again, and saves the updated dossier. Session 2 starts fresh and recalls the full vendor history, not just the last run.</p>
       <div class="session-grid">
         <div class="session-panel session-list">
           <div class="session-step active" id="sessionOne">
@@ -827,7 +827,7 @@
           </div>
           <div class="session-step" id="sessionTwo">
             <div class="session-k">Session 2 · recall</div>
-            <div class="session-v" id="sessionTwoDetail">After Session 1, the demo reopens Sibyl and reads the persisted dossier.</div>
+            <div class="session-v" id="sessionTwoDetail">After Session 1, the demo reopens Sibyl and reads every persisted negotiation for this vendor.</div>
             <div class="session-result" id="recallResult">-</div>
           </div>
         </div>
@@ -987,8 +987,8 @@ function escapeHtml(value) {
 function clearUi() {
   $("sessionOne").classList.add("active");
   $("sessionTwo").classList.remove("active");
-  $("sessionOneDetail").textContent = "Waiting to write a renewed vendor dossier to Sibyl.";
-  $("sessionTwoDetail").textContent = "After Session 1, the demo reopens Sibyl and reads the persisted dossier.";
+  $("sessionOneDetail").textContent = "Waiting to load prior vendor memory and write the next renewal to Sibyl.";
+  $("sessionTwoDetail").textContent = "After Session 1, the demo reopens Sibyl and reads every persisted negotiation for this vendor.";
   $("seedResult").textContent = "-";
   $("recallResult").textContent = "-";
   $("seedHeadPrice").textContent = "-";
@@ -1188,7 +1188,12 @@ function run() {
     $("sessionOne").classList.remove("active");
     $("sessionTwo").classList.add("active");
     $("sessionTwoDetail").textContent = data.detail;
-    $("recallResult").textContent = "Sibyl reopened; dossier loaded for Session 2";
+    $("recallResult").textContent = "Sibyl reopened; loading full vendor history";
+  });
+
+  source.addEventListener("memory_summary", (event) => {
+    const data = JSON.parse(event.data);
+    $("recallResult").textContent = `Loaded ${data.totalCount} remembered negotiation(s): ${data.priorCount} prior + Session 1`;
   });
 
   source.addEventListener("seed_turn", (event) => {
