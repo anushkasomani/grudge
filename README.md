@@ -92,11 +92,11 @@ distinct agents rather than one model arguing with itself.
 ./.venv/bin/python web/server.py       # then open http://127.0.0.1:8000
 ```
 
-The browser runs the same comparison live through server-sent events: if a
-vendor has no dossier yet, it seeds memory first, then streams memory-wiped and
-memory-intact negotiations turn by turn. After seeding, the server closes and
-reopens Sibyl Memory before the memory-intact run, so the recall path is a fresh
-session read from persisted memory.
+The browser runs a two-session story through server-sent events. Session 1
+negotiates a renewal and writes the updated vendor dossier to Sibyl. The server
+then closes and reopens Sibyl Memory before Session 2, where it shows the same
+vendor negotiated with memory wiped versus memory intact. That makes the
+fresh-session recall path visible on screen, not just implied by the code.
 
 ### Commands
 

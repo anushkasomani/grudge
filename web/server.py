@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import os
 import sys
+from datetime import datetime, timezone
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from types import SimpleNamespace
@@ -67,35 +68,44 @@ def run_live_compare(handler: SimpleHTTPRequestHandler, query: dict[str, list[st
             "settlement": not no_settle,
         })
 
+        existing_dossier = memory.get_dossier(vendor_id)
+        event(handler, "session", {
+            "index": 1,
+            "label": "Session 1",
+            "detail": (
+                "Learning renewal and saving an updated dossier to Sibyl"
+                if existing_dossier
+                else "First renewal with this vendor; writing the first Sibyl dossier"
+            ),
+        })
+        seed_plan = build_plan(
+            vendor_id,
+            persona.list_price,
+            existing_dossier,
+            memory.past_negotiations(vendor_id),
+        )
+        event(handler, "plan", {"side": "seed", "plan": seed_plan.to_dict()})
+        buyer_provider, vendor_provider = _providers(offline, persona, seed_plan)
+        seed = run_negotiation(
+            persona=persona,
+            plan=seed_plan,
+            buyer_provider=buyer_provider,
+            vendor_provider=vendor_provider,
+            memory_enabled=True,
+            max_rounds=rounds,
+            negotiation_id=f"live-session-1-{vendor_id}-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}",
+            on_turn=lambda t: event(handler, "seed_turn", turn_payload(t)),
+        )
+        consolidate(memory, seed)
+        event(handler, "seed_result", {"settled": seed.settled_price, "rounds": seed.rounds_used})
+        event(handler, "session", {
+            "index": 2,
+            "label": "Session 2",
+            "detail": "Fresh process boundary: reopening Sibyl and recalling the persisted dossier",
+        })
+        memory.close()
+        memory = GrudgeMemory(enabled=True)
         dossier = memory.get_dossier(vendor_id)
-        if not dossier:
-            event(handler, "phase", {"label": "Seeding memory", "detail": "First cycle run"})
-            seed_plan = build_plan(
-                vendor_id,
-                persona.list_price,
-                memory.get_dossier(vendor_id),
-                memory.past_negotiations(vendor_id),
-            )
-            buyer_provider, vendor_provider = _providers(offline, persona, seed_plan)
-            seed = run_negotiation(
-                persona=persona,
-                plan=seed_plan,
-                buyer_provider=buyer_provider,
-                vendor_provider=vendor_provider,
-                memory_enabled=True,
-                max_rounds=rounds,
-                negotiation_id=f"live-seed-{vendor_id}",
-                on_turn=lambda t: event(handler, "seed_turn", turn_payload(t)),
-            )
-            consolidate(memory, seed)
-            event(handler, "seed_result", {"settled": seed.settled_price, "rounds": seed.rounds_used})
-            event(handler, "phase", {
-                "label": "Fresh session",
-                "detail": "Reopening Sibyl memory before recall",
-            })
-            memory.close()
-            memory = GrudgeMemory(enabled=True)
-            dossier = memory.get_dossier(vendor_id)
 
         plan_warm = build_plan(
             vendor_id,

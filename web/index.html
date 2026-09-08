@@ -537,6 +537,58 @@
     color: var(--ink-3);
   }
 
+  .session-grid {
+    display: grid;
+    grid-template-columns: .78fr 1.22fr;
+    gap: 20px;
+  }
+  @media (max-width: 900px) { .session-grid { grid-template-columns: 1fr; } }
+
+  .session-panel {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .session-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .session-step {
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--rule-2);
+  }
+  .session-step:last-child { border-bottom: none; }
+  .session-step.active {
+    background: linear-gradient(90deg, var(--amber-soft), transparent 72%);
+  }
+
+  .session-k {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 6px;
+  }
+
+  .session-v {
+    color: var(--ink-2);
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+
+  .session-result {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--green);
+    margin-top: 8px;
+    font-variant-numeric: tabular-nums;
+  }
+
   .transcripts {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -545,6 +597,7 @@
   @media (max-width: 900px) { .transcripts { grid-template-columns: 1fr; } }
 
   .tcol { display: flex; flex-direction: column; gap: 0; }
+  .tcol.seed .thead { border-top: 2px solid var(--amber); }
   .thead {
     padding: 14px 18px;
     border: 1px solid var(--rule);
@@ -567,6 +620,7 @@
   }
   .tcol.wiped .thead-name { color: var(--red); }
   .tcol.intact .thead-name { color: var(--green); }
+  .tcol.seed .thead-name { color: var(--amber); }
   .thead-price {
     font-family: var(--mono);
     font-variant-numeric: tabular-nums;
@@ -651,6 +705,7 @@
   }
   .tcol.wiped .settled-bar { background: var(--red-soft); color: var(--red); }
   .tcol.intact .settled-bar { background: var(--green-soft); color: var(--green); }
+  .tcol.seed .settled-bar { background: var(--amber-soft); color: var(--amber); }
 
   .settlement-card {
     padding: 16px 18px;
@@ -759,6 +814,32 @@
         <div class="statusline"><span class="dot" id="dot"></span><span id="status">Waiting</span></div>
       </div>
     </header>
+
+    <section>
+      <h2><span class="n">00</span>Two session demo</h2>
+      <p class="lede">Session 1 negotiates and writes the vendor memory to Sibyl. Session 2 starts fresh, reloads that memory, and changes the next negotiation.</p>
+      <div class="session-grid">
+        <div class="session-panel session-list">
+          <div class="session-step active" id="sessionOne">
+            <div class="session-k">Session 1 · learn</div>
+            <div class="session-v" id="sessionOneDetail">Waiting to write a renewed vendor dossier to Sibyl.</div>
+            <div class="session-result" id="seedResult">-</div>
+          </div>
+          <div class="session-step" id="sessionTwo">
+            <div class="session-k">Session 2 · recall</div>
+            <div class="session-v" id="sessionTwoDetail">After Session 1, the demo reopens Sibyl and reads the persisted dossier.</div>
+            <div class="session-result" id="recallResult">-</div>
+          </div>
+        </div>
+        <div class="tcol seed">
+          <div class="thead">
+            <span class="thead-name">Session 1 transcript</span>
+            <span class="thead-price" id="seedHeadPrice">-</span>
+          </div>
+          <div class="tbody" id="seedTurns"><div class="empty">Learning negotiation appears here.</div></div>
+        </div>
+      </div>
+    </section>
 
     <div class="verdict">
     <div class="verdict-grid">
@@ -904,6 +985,14 @@ function escapeHtml(value) {
 }
 
 function clearUi() {
+  $("sessionOne").classList.add("active");
+  $("sessionTwo").classList.remove("active");
+  $("sessionOneDetail").textContent = "Waiting to write a renewed vendor dossier to Sibyl.";
+  $("sessionTwoDetail").textContent = "After Session 1, the demo reopens Sibyl and reads the persisted dossier.";
+  $("seedResult").textContent = "-";
+  $("recallResult").textContent = "-";
+  $("seedHeadPrice").textContent = "-";
+  $("seedTurns").innerHTML = '<div class="empty">Learning negotiation appears here.</div>';
   $("coldPrice").textContent = "-";
   $("warmPrice").textContent = "-";
   $("coldHeadPrice").textContent = "-";
@@ -912,12 +1001,43 @@ function clearUi() {
   $("deltaPct").textContent = "-";
   $("coldNote").textContent = "Cold start";
   $("warmNote").textContent = "Warm run";
-  $("facts").innerHTML = '<div class="memory-card"><div class="memory-k">Loading</div><div class="memory-v">Run once to seed the dossier.</div></div>';
-  $("rationale").innerHTML = "";
+  $("facts").innerHTML = '<div class="memory-card full"><div class="memory-k">Loading</div><div class="memory-v">Session 2 will load the persisted Sibyl dossier here.</div></div>';
+  $("rationale").innerHTML = '<li class="placeholder">Session 2 will show why the opening changed.</li>';
   $("coldTurns").innerHTML = '<div class="empty">Cold-start transcript appears here.</div>';
   $("warmTurns").innerHTML = '<div class="empty">Memory-led transcript appears here.</div>';
   $("settlement").innerHTML = '<div class="memory-k">Off</div><div class="memory-v">No settlement will run until you enable it.</div>';
   $("diff").innerHTML = "";
+}
+
+function renderTurnNode(data) {
+  const node = document.createElement("div");
+  node.className = `turn ${data.speaker}`;
+  const tactic = data.tactic ? `<span class="tactic-chip">${escapeHtml(tacticNames[data.tactic] || data.tactic)}</span>` : "";
+  const threat = data.threat ? '<span class="threat">walkaway threat</span>' : "";
+  node.innerHTML = `
+    <div class="turn-who">
+      <span>${escapeHtml(data.speaker)} · round ${data.round}</span>
+      <span>${data.offer ? money(data.offer) : ""}</span>
+    </div>
+    <div class="turn-msg">${escapeHtml(data.message)}</div>
+    <div class="turn-foot">${tactic}${threat}</div>
+    ${data.reasoning ? `<div class="reasoning">${escapeHtml(data.reasoning)}</div>` : ""}
+  `;
+  return node;
+}
+
+function appendTurn(targetId, data) {
+  const target = $(targetId);
+  if (target.querySelector(".empty")) target.innerHTML = "";
+  target.appendChild(renderTurnNode(data));
+}
+
+function appendSettledBar(targetId, settled, rounds) {
+  const target = $(targetId);
+  const bar = document.createElement("div");
+  bar.className = "settled-bar";
+  bar.innerHTML = `<span>Saved to Sibyl</span><span>${money(settled)} &middot; ${rounds} rounds</span>`;
+  target.appendChild(bar);
 }
 
 function diffHtml(d) {
@@ -1055,6 +1175,33 @@ function run() {
     setRunning(true, data.label);
   });
 
+  source.addEventListener("session", (event) => {
+    const data = JSON.parse(event.data);
+    $("phase").textContent = data.label;
+    setRunning(true, data.label);
+    if (data.index === 1) {
+      $("sessionOne").classList.add("active");
+      $("sessionTwo").classList.remove("active");
+      $("sessionOneDetail").textContent = data.detail;
+      return;
+    }
+    $("sessionOne").classList.remove("active");
+    $("sessionTwo").classList.add("active");
+    $("sessionTwoDetail").textContent = data.detail;
+    $("recallResult").textContent = "Sibyl reopened; dossier loaded for Session 2";
+  });
+
+  source.addEventListener("seed_turn", (event) => {
+    appendTurn("seedTurns", JSON.parse(event.data));
+  });
+
+  source.addEventListener("seed_result", (event) => {
+    const data = JSON.parse(event.data);
+    $("seedHeadPrice").textContent = money(data.settled);
+    $("seedResult").textContent = `Saved ${money(data.settled)} outcome to Sibyl`;
+    appendSettledBar("seedTurns", data.settled, data.rounds);
+  });
+
   source.addEventListener("dossier", (event) => renderFacts(JSON.parse(event.data).dossier));
   source.addEventListener("plan", (event) => {
     const data = JSON.parse(event.data);
@@ -1068,22 +1215,7 @@ function run() {
 
   source.addEventListener("turn", (event) => {
     const data = JSON.parse(event.data);
-    const target = data.side === "cold" ? $("coldTurns") : $("warmTurns");
-    if (target.querySelector(".empty")) target.innerHTML = "";
-    const node = document.createElement("div");
-    node.className = `turn ${data.speaker}`;
-    const tactic = data.tactic ? `<span class="tactic-chip">${escapeHtml(tacticNames[data.tactic] || data.tactic)}</span>` : "";
-    const threat = data.threat ? '<span class="threat">walkaway threat</span>' : "";
-    node.innerHTML = `
-      <div class="turn-who">
-        <span>${escapeHtml(data.speaker)} · round ${data.round}</span>
-        <span>${data.offer ? money(data.offer) : ""}</span>
-      </div>
-      <div class="turn-msg">${escapeHtml(data.message)}</div>
-      <div class="turn-foot">${tactic}${threat}</div>
-      ${data.reasoning ? `<div class="reasoning">${escapeHtml(data.reasoning)}</div>` : ""}
-    `;
-    target.appendChild(node);
+    appendTurn(data.side === "cold" ? "coldTurns" : "warmTurns", data);
   });
 
   source.addEventListener("result", (event) => {
