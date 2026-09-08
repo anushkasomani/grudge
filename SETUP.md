@@ -80,10 +80,16 @@ GROQ_API_KEY=gsk_your_key_here
 > cannot see it. The `.env` file is permanent and is ignored by git, so your
 > key is never uploaded.
 
-Now run without `--offline`:
+For a clean one-off demo, clear the remembered vendor history first. Normal
+usage should not wipe memory; Grudge is meant to keep learning across sessions.
 
 ```bash
 ./.venv/bin/python -m grudge.cli wipe-memory --yes
+```
+
+Now run without `--offline`:
+
+```bash
 ./.venv/bin/python -m grudge.cli seed --vendor datadog --no-settle
 ./.venv/bin/python -m grudge.cli compare --vendor datadog --no-settle
 ```
@@ -103,8 +109,14 @@ both, the buyer uses Anthropic and the vendor uses Groq.
 
 Open **http://127.0.0.1:8000** in your browser.
 
-Choose a vendor and press **Run Negotiation**. The page streams the seed run
-when memory is empty, then runs memory-wiped vs memory-intact negotiations live.
+Choose a vendor and press **Run Negotiation**. The page shows a two-session
+Sibyl memory proof:
+
+1. Session 1 loads all existing Sibyl history for that vendor, negotiates, and
+   writes an updated dossier back to Sibyl.
+2. The server closes and reopens Sibyl Memory, then Session 2 recalls the full
+   vendor history and runs memory-wiped vs memory-intact negotiations live.
+
 Turn off **Offline** to use real LLM agents after adding an API key. Turn on
 **Settle** after adding Base or ACP credentials.
 
@@ -206,7 +218,7 @@ Useful flags:
 |---|---|
 | `--offline` | Use the built-in counterparty, no API key |
 | `--no-settle` | Skip the blockchain payment |
-| `--export` | Write results for the web page |
+| `--export` | Write comparison JSON for debugging or archival output |
 | `--rounds N` | Change the negotiation length (default 6) |
 
 ---
