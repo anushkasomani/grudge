@@ -122,10 +122,12 @@ async function main() {
         ACP_OFFERING_NAME,
         ACP_PROVIDER_ADDRESS,
         {
-          memo,
-          agreedAnnualValueUsd: amount,
-          requestedEscrowUsdc: amount,
-          source: "grudge",
+          requirement: [
+            `SaaS renewal agreement details with vendor.`,
+            `Agreed fixed settlement amount: ${amount} USDC.`,
+            `Memo: ${memo || "Grudge negotiated SaaS renewal settlement."}`,
+          ].join(" "),
+          deliverable: "Confirmation that the renewal job was accepted/settled.",
         },
         ACP_EVALUATOR_ADDRESS ? { evaluatorAddress: ACP_EVALUATOR_ADDRESS } : { evaluatorAddress: buyerAddress }
       );
@@ -150,4 +152,6 @@ async function main() {
   }
 }
 
-main();
+main().catch((err) => {
+  console.log(JSON.stringify({ ok: false, note: `${err?.name}: ${err?.message}` }));
+});
