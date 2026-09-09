@@ -598,6 +598,19 @@
 
   .tcol { display: flex; flex-direction: column; gap: 0; }
   .tcol.seed .thead { border-top: 2px solid var(--amber); }
+  details.seed > summary { cursor: pointer; list-style: none; user-select: none; }
+  details.seed > summary::-webkit-details-marker { display: none; }
+  details.seed > summary::after {
+    content: "show";
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-left: auto;
+    padding-left: 12px;
+  }
+  details.seed[open] > summary::after { content: "hide"; }
   .thead {
     padding: 14px 18px;
     border: 1px solid var(--rule);
@@ -811,27 +824,29 @@
 
     <section>
       <h2><span class="n">00</span>Two session demo</h2>
-      <p class="lede">Session 1 loads any existing Sibyl history for this vendor, negotiates again, and saves the updated dossier. Session 2 starts fresh and recalls the full vendor history, not just the last run.</p>
+      <p class="lede">Proof the memory is really saved to disk. Session 1 negotiates and
+      saves. Then the memory file is closed and reopened &mdash; like coming back months
+      later &mdash; and Session 2 reads it back before negotiating again.</p>
       <div class="session-grid">
         <div class="session-panel session-list">
           <div class="session-step active" id="sessionOne">
             <div class="session-k">Session 1 · learn</div>
-            <div class="session-v" id="sessionOneDetail">Waiting to write a renewed vendor dossier to Sibyl.</div>
+            <div class="session-v" id="sessionOneDetail">Waiting to start.</div>
             <div class="session-result" id="seedResult">-</div>
           </div>
           <div class="session-step" id="sessionTwo">
             <div class="session-k">Session 2 · recall</div>
-            <div class="session-v" id="sessionTwoDetail">After Session 1, the demo reopens Sibyl and reads every persisted negotiation for this vendor.</div>
+            <div class="session-v" id="sessionTwoDetail">Reopens the memory file and reads back everything saved about this vendor.</div>
             <div class="session-result" id="recallResult">-</div>
           </div>
         </div>
-        <div class="tcol seed">
-          <div class="thead">
+        <details class="tcol seed">
+          <summary class="thead">
             <span class="thead-name">Session 1 transcript</span>
             <span class="thead-price" id="seedHeadPrice">-</span>
-          </div>
-          <div class="tbody" id="seedTurns"><div class="empty">Learning negotiation appears here.</div></div>
-        </div>
+          </summary>
+          <div class="tbody" id="seedTurns"><div class="empty">The first negotiation appears here.</div></div>
+        </details>
       </div>
     </section>
 
@@ -986,7 +1001,7 @@ function clearUi() {
   $("seedResult").textContent = "-";
   $("recallResult").textContent = "-";
   $("seedHeadPrice").textContent = "-";
-  $("seedTurns").innerHTML = '<div class="empty">Learning negotiation appears here.</div>';
+  $("seedTurns").innerHTML = '<div class="empty">The first negotiation appears here.</div>';
   $("coldPrice").textContent = "-";
   $("warmPrice").textContent = "-";
   $("coldHeadPrice").textContent = "-";
@@ -1191,6 +1206,9 @@ function run() {
   });
 
   source.addEventListener("seed_turn", (event) => {
+    // Keep it open while turns stream in, so the negotiation is visible live.
+    const box = document.querySelector("details.seed");
+    if (box) box.open = true;
     appendTurn("seedTurns", JSON.parse(event.data));
   });
 
@@ -1199,6 +1217,9 @@ function run() {
     $("seedHeadPrice").textContent = money(data.settled);
     $("seedResult").textContent = `Saved ${money(data.settled)} outcome to Sibyl`;
     appendSettledBar("seedTurns", data.settled, data.rounds);
+    // Session 1 is only the setup; collapse it so the comparison below leads.
+    const box = document.querySelector("details.seed");
+    if (box) box.open = false;
   });
 
   source.addEventListener("dossier", (event) => renderFacts(JSON.parse(event.data).dossier));
