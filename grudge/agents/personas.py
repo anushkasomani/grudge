@@ -20,12 +20,12 @@ class VendorPersona:
     opening_discount_pct: float  # what they'll concede unprompted
     bluff_walkaway: bool         # threatens to walk without meaning it
     stubborn_rounds: int         # rounds held before the first real concession
-    responsive_tactics: list[str] = field(default_factory=list)
+    # Negotiation arguments that CAN convince this vendor to lower the price.
+    responsive_tactics: list[str] = field(default_factory=list) 
+     # Negotiation arguments that DO NOT convince this vendor.
     immune_tactics: list[str] = field(default_factory=list)
-    # How much of the remaining gap to its floor the vendor will concede when
-    # the buyer presses a lever it genuinely responds to. Low values mean the
-    # floor is only reachable by using the RIGHT levers repeatedly, which is
-    # what makes remembering them worth money.
+    # When a useful negotiation argument is used,
+    # the vendor gives up 28% of the remaining distance toward its minimum price.
     concession_share: float = 0.28
     style: str = "professional, firm, uses account-management language"
 

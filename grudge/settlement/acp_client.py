@@ -31,6 +31,10 @@ class AcpResult:
     job_id: str | None = None
     tx_hash: str | None = None
     amount_usdc: float = 0.0
+    observed_budget_usdc: float | None = None
+    chain_id: int | None = None
+    funded: bool = False
+    completed: bool = False
     note: str = ""
 
     def to_dict(self) -> dict[str, Any]:
@@ -39,13 +43,19 @@ class AcpResult:
 
 class AcpSettlement:
     def __init__(self) -> None:
-        self.whitelisted_key = os.getenv("ACP_AGENT_PRIVATE_KEY")
-        self.entity_id = os.getenv("ACP_ENTITY_ID")
+        self.wallet_address = os.getenv("ACP_WALLET_ADDRESS")
+        self.wallet_id = os.getenv("ACP_WALLET_ID")
+        self.signer_private_key = os.getenv("ACP_SIGNER_PRIVATE_KEY") or os.getenv("ACP_AGENT_PRIVATE_KEY")
         self.provider_address = os.getenv("ACP_PROVIDER_ADDRESS")
 
     @property
     def configured(self) -> bool:
-        return bool(self.whitelisted_key and self.entity_id and self.provider_address)
+        return bool(
+            self.wallet_address
+            and self.wallet_id
+            and self.signer_private_key
+            and self.provider_address
+        )
 
     def settle(self, amount_usd: float, *, memo: str = "", scale: float | None = None) -> AcpResult:
         scaled = round(amount_usd * (scale if scale is not None else float(os.getenv("GRUDGE_USDC_SCALE", "0.0001"))), 6)
@@ -54,8 +64,9 @@ class AcpSettlement:
             return AcpResult(
                 ok=False, mode="unavailable", amount_usdc=scaled,
                 note=(
-                    "ACP not configured (needs ACP_AGENT_PRIVATE_KEY, ACP_ENTITY_ID, "
-                    "ACP_PROVIDER_ADDRESS and a registered Service Registry agent). "
+                    "ACP not configured (needs ACP_WALLET_ADDRESS, ACP_WALLET_ID, "
+                    "ACP_SIGNER_PRIVATE_KEY, ACP_PROVIDER_ADDRESS and a registered "
+                    "Service Registry offering). "
                     "Falling back to direct USDC transfer on Base Sepolia."
                 ),
             )
@@ -85,7 +96,12 @@ class AcpSettlement:
             return AcpResult(
                 ok=bool(data.get("ok")), mode="acp",
                 job_id=data.get("jobId"), tx_hash=data.get("txHash"),
-                amount_usdc=scaled, note=data.get("note", ""),
+                amount_usdc=scaled,
+                observed_budget_usdc=data.get("observedBudget"),
+                chain_id=data.get("chainId"),
+                funded=bool(data.get("funded")),
+                completed=bool(data.get("completed")),
+                note=data.get("note", ""),
             )
         except Exception as exc:  # noqa: BLE001
             return AcpResult(

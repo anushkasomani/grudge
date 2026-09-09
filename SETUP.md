@@ -80,10 +80,16 @@ GROQ_API_KEY=gsk_your_key_here
 > cannot see it. The `.env` file is permanent and is ignored by git, so your
 > key is never uploaded.
 
+For a clean one-off demo, clear the remembered vendor history first. Normal
+usage should not wipe memory; Grudge is meant to keep learning across sessions.
+
+```bash
+./.venv/bin/python -m grudge.cli wipe-memory --yes
+```
+
 Now run without `--offline`:
 
 ```bash
-rm -f memory_store/grudge.db
 ./.venv/bin/python -m grudge.cli seed --vendor datadog --no-settle
 ./.venv/bin/python -m grudge.cli compare --vendor datadog --no-settle
 ```
@@ -98,20 +104,21 @@ both, the buyer uses Anthropic and the vendor uses Groq.
 ## Step 4 — The web page
 
 ```bash
-./.venv/bin/python -m grudge.cli compare --vendor datadog --no-settle --export
-python3 -m http.server -d web 8000
+./.venv/bin/python web/server.py
 ```
 
-Open **http://localhost:8000** in your browser.
+Open **http://127.0.0.1:8000** in your browser.
 
-To get a tab for each vendor, export each one:
+Choose a vendor and press **Run Negotiation**. The page shows a two-session
+Sibyl memory proof:
 
-```bash
-for v in datadog segment vercel; do
-  ./.venv/bin/python -m grudge.cli seed --vendor $v --no-settle
-  ./.venv/bin/python -m grudge.cli compare --vendor $v --no-settle --export
-done
-```
+1. Session 1 loads all existing Sibyl history for that vendor, negotiates, and
+   writes an updated dossier back to Sibyl.
+2. The server closes and reopens Sibyl Memory, then Session 2 recalls the full
+   vendor history and runs memory-wiped vs memory-intact negotiations live.
+
+Turn off **Offline** to use real LLM agents after adding an API key. Turn on
+**Settle** after adding Base or ACP credentials.
 
 Press `Ctrl+C` in the terminal to stop the web server.
 
@@ -156,16 +163,36 @@ demo runs. Change this with `GRUDGE_USDC_SCALE` in `.env`.
 
 ## Step 6 — Virtuals ACP (optional)
 
-Settles the deal through Virtuals' escrow system instead of a plain transfer.
-Needs a registered agent on the Virtuals Service Registry, which takes time to
-approve.
+Settles the already-agreed deal through Virtuals' Agent Commerce Protocol
+instead of a plain transfer. ACP is not used for grudge's price haggling: grudge
+negotiates the renewal first, then ACP creates a commerce job for that fixed
+amount, waits for the provider to set the budget, and funds escrow.
+
+You need a Virtuals ACP wallet plus a provider offering registered in the
+Service Registry. The offering name defaults to `saas-renewal`.
 
 ```bash
 cd acp_sidecar && npm install && cd ..
 ```
 
-Then add `ACP_AGENT_PRIVATE_KEY`, `ACP_ENTITY_ID` and `ACP_PROVIDER_ADDRESS` to
-`.env`.
+Then add these to `.env`:
+
+```
+ACP_WALLET_ADDRESS=0xyour_acp_wallet
+ACP_WALLET_ID=your_privy_wallet_id
+ACP_SIGNER_PRIVATE_KEY=your_privy_signer_private_key
+ACP_PROVIDER_ADDRESS=0xprovider_wallet_with_saas_renewal_offering
+```
+
+Optional overrides:
+
+```
+ACP_OFFERING_NAME=saas-renewal
+ACP_CHAIN_ID=84532
+ACP_BUILDER_CODE=
+ACP_EVALUATOR_ADDRESS=
+ACP_WAIT_TIMEOUT_MS=120000
+```
 
 If these are missing, the project automatically uses the Base transfer from
 step 5 instead. Nothing breaks.
@@ -191,7 +218,7 @@ Useful flags:
 |---|---|
 | `--offline` | Use the built-in counterparty, no API key |
 | `--no-settle` | Skip the blockchain payment |
-| `--export` | Write results for the web page |
+| `--export` | Write comparison JSON for debugging or archival output |
 | `--rounds N` | Change the negotiation length (default 6) |
 
 ---
@@ -218,16 +245,17 @@ negotiation to remember.
 **`Insufficient USDC`**
 Your test wallet is empty. Go back to step 5 part 2.
 
-**Web page says "No comparison export found"**
-Run a `compare` with `--export` first, and make sure you started the server with
-`python3 -m http.server -d web 8000` from the project folder.
+**The web page does not update**
+Start it with `./.venv/bin/python web/server.py`, not `python3 -m http.server`.
+The live page needs the local API server for streaming negotiation events.
 
 **Everything is broken and you want to start over**
 ```bash
 ./.venv/bin/python -m grudge.cli wipe-memory --yes
 rm -rf web/runs
 ```
-This deletes only memory and demo output. Your code and `.env` stay.
+This clears only the Sibyl memory used by the demo and removes generated web
+output. Your code and `.env` stay.
 
 ---
 
@@ -241,7 +269,10 @@ grudge/
   settlement/  Blockchain payment (Base, and Virtuals ACP)
   demo/        Terminal display and web page export
   cli.py       All the commands
-memory_store/  The memory database (deleted by wipe-memory)
 web/           The web page
 tests/         Proof that memory changes the result
 ```
+
+By default, Grudge uses Sibyl's standard local-first memory store at
+`~/.sibyl-memory/memory.db`. You usually do not need to configure this. For an
+isolated demo or test run, set `SIBYL_MEMORY_DB` in `.env`.
