@@ -597,37 +597,6 @@
   @media (max-width: 900px) { .transcripts { grid-template-columns: 1fr; } }
 
   .tcol { display: flex; flex-direction: column; gap: 0; }
-  .verdict-head { margin-bottom: -8px; }
-
-  .memory-banner {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 16px 20px;
-    border: 1px solid var(--rule);
-    border-left: 3px solid var(--amber);
-    border-radius: 4px;
-    background: var(--card);
-    box-shadow: var(--shadow);
-  }
-  .mem-icon {
-    flex: none;
-    width: 46px;
-    height: 46px;
-    display: grid;
-    place-items: center;
-    border-radius: 8px;
-    background: var(--amber-soft);
-    color: var(--amber);
-    font-family: var(--mono);
-    font-size: 20px;
-    font-weight: 600;
-    font-variant-numeric: tabular-nums;
-  }
-  .mem-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-  .mem-title { font-size: 15px; font-weight: 600; color: var(--ink); }
-  .mem-sub { font-size: 13px; color: var(--ink-3); }
-
   .tcol.seed .thead { border-top: 2px solid var(--amber); }
   details.seed > summary { cursor: pointer; list-style: none; user-select: none; }
   details.seed > summary::-webkit-details-marker { display: none; }
@@ -853,16 +822,8 @@
       </div>
     </header>
 
-    <div class="memory-banner" id="memBanner">
-      <div class="mem-icon" id="memIcon">0</div>
-      <div class="mem-text">
-        <div class="mem-title" id="memTitle">Checking what the agent remembers&hellip;</div>
-        <div class="mem-sub" id="memSub">Every run is saved, so the agent knows more next time.</div>
-      </div>
-    </div>
-
     <section>
-      <h2><span class="n">01</span>Does the memory survive a restart?</h2>
+      <h2><span class="n">00</span>Two session demo</h2>
       <p class="lede">Proof the memory is really saved to disk. Session 1 negotiates and
       saves. Then the memory file is closed and reopened &mdash; like coming back months
       later &mdash; and Session 2 reads it back before negotiating again.</p>
@@ -889,7 +850,6 @@
       </div>
     </section>
 
-    <h2 class="verdict-head"><span class="n">02</span>The result</h2>
     <div class="verdict">
     <div class="verdict-grid">
       <div class="col wiped">
@@ -914,8 +874,8 @@
     </div>
 
     <section>
-      <h2><span class="n">03</span>What it remembered about this vendor</h2>
-      <p class="lede">This is everything the agent knows about this vendor. It is the only thing that makes the two runs differ.</p>
+      <h2><span class="n">01</span>What it remembered</h2>
+      <p class="lede">One vendor dossier, loaded from Sibyl, then used to change the opening move and the order of tactics.</p>
       <div class="panel">
         <div class="memory-grid" id="facts">
           <div class="memory-card full"><div class="memory-k">Loading</div><div class="memory-v">Run once to seed the dossier.</div></div>
@@ -924,15 +884,15 @@
     </section>
 
     <section>
-      <h2><span class="n">04</span>How that changed its opening move</h2>
+      <h2><span class="n">02</span>Why the opening changed</h2>
       <div class="why">
-        <ol id="rationale"><li class="placeholder">Run once, then run again to see the agent use what it learned.</li></ol>
+        <ol id="rationale"><li class="placeholder">Run one negotiation to see why the opening changed.</li></ol>
       </div>
     </section>
 
     <section>
-      <h2><span class="n">05</span>Both negotiations, word for word</h2>
-      <p class="lede">Same vendor, same number of rounds, same secret price floor. Only the memory differs.</p>
+      <h2><span class="n">03</span>Both transcripts</h2>
+      <p class="lede">Same vendor, same round budget. The difference is whether the remembered history was readable.</p>
       <div class="transcripts">
         <div class="tcol wiped">
           <div class="thead">
@@ -952,7 +912,7 @@
     </section>
 
     <section>
-      <h2><span class="n">06</span>Payment</h2>
+      <h2><span class="n">04</span>Settlement</h2>
       <div class="panel">
         <div class="settlement-card" id="settlement">
           <div class="memory-k">Off</div>
@@ -1114,7 +1074,7 @@ function planRow(label, value) {
 
 function renderFacts(dossier) {
   if (!dossier) {
-    $("facts").innerHTML = '<div class="memory-card full"><div class="memory-k">Empty</div><div class="memory-v">Nothing yet. The first run creates it.</div></div>';
+    $("facts").innerHTML = '<div class="memory-card full"><div class="memory-k">Empty</div><div class="memory-v">No dossier is loaded yet. Run once to seed the memory.</div></div>';
     return;
   }
   const ledger = dossier.tactic_ledger || {};
@@ -1123,29 +1083,17 @@ function renderFacts(dossier) {
   const bluff = dossier.bluff_ledger?.walkaway_threat;
   const floor = dossier.floor_estimate;
   const cards = [];
-  cards.push(planRow("Arguments that made them drop the price",
-    works.length ? works.join(", ") : "None discovered yet"));
-  cards.push(planRow("Arguments they ignore &mdash; don't waste a round",
-    dead.length ? dead.join(", ") : "None ruled out yet"));
-  if (bluff) {
-    const isBluff = bluff.verdict === "BLUFF";
-    cards.push(planRow(
-      'Do they mean it when they threaten to walk away?',
-      isBluff
-        ? `No &mdash; bluffing. Threatened ${bluff.threatened || 0} time(s), walked out ${bluff.executed || 0}.`
-        : `Yes &mdash; treat the threat as real.`));
-  }
-  if (floor) {
-    cards.push(planRow("Cheapest price they have ever accepted",
-      `${money(floor.value)} &mdash; so their real limit is at or below this`));
-  }
+  cards.push(planRow("Works", works.length ? works.join(", ") : "None yet"));
+  cards.push(planRow("Skip", dead.length ? dead.join(", ") : "Nothing banned"));
+  if (bluff) cards.push(planRow("Walkaway", bluff.verdict));
+  if (floor) cards.push(planRow("Floor", `${money(floor.value)} at ${Math.round((floor.confidence || 0) * 100)}%`));
   $("facts").innerHTML = cards.join("");
 }
 
 function renderRationale(items) {
   $("rationale").innerHTML = items.length
     ? items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")
-    : '<li class="placeholder">Run once, then run again to see the agent use what it learned.</li>';
+    : '<li class="placeholder">Run one negotiation to see why the opening changed.</li>';
 }
 
 function renderTurns(side, result) {
@@ -1244,15 +1192,6 @@ function run() {
       $("sessionOne").classList.add("active");
       $("sessionTwo").classList.remove("active");
       $("sessionOneDetail").textContent = data.detail;
-      // Say plainly how much history this run started with.
-      const n = data.priorCount || 0;
-      $("memIcon").textContent = n;
-      $("memTitle").textContent = n === 0
-        ? "The agent remembers nothing about this vendor yet"
-        : `The agent already remembers ${n} past negotiation${n === 1 ? "" : "s"} with this vendor`;
-      $("memSub").textContent = n === 0
-        ? "This first run is the one it learns from. Run it again to see memory used."
-        : "It is using that history right now to pick its opening move.";
       return;
     }
     $("sessionOne").classList.remove("active");
