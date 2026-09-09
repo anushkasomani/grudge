@@ -50,7 +50,7 @@
   .wrap {
     max-width: 1180px;
     margin: 0 auto;
-    padding: 40px 28px 92px;
+    padding: 40px 28px 56px;
     display: flex;
     flex-direction: column;
     gap: 32px;
@@ -107,13 +107,9 @@
   .page[hidden] { display: none; }
 
   .home {
-    display: grid;
-    grid-template-columns: 1.15fr .85fr;
+    display: flex;
+    flex-direction: column;
     gap: 18px;
-    align-items: start;
-  }
-  @media (max-width: 900px) {
-    .home { grid-template-columns: 1fr; }
   }
   .home-panel {
     background: var(--card);
@@ -173,13 +169,17 @@
     border-radius: 4px;
     background: var(--card);
     box-shadow: var(--shadow);
-    padding: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
   }
   .feature h3 {
-    margin: 0 0 8px;
+    margin: 0;
     font-family: var(--display);
-    font-size: 22px;
+    font-size: 21px;
     font-weight: 500;
+    text-wrap: balance;
   }
   .feature p {
     margin: 0;
@@ -745,42 +745,36 @@
   </nav>
 
   <section class="page masthead" id="homePage">
-    <div class="eyebrow">Renewal negotiation · live memory</div>
-    <h1>The same renewal, <em>twice</em>.<br>Once with a memory.</h1>
+    <div class="eyebrow">AI vendor negotiation</div>
+    <h1>An agent that <em>holds a grudge</em>.</h1>
     <p class="standfirst">
-      Grudge is a renewal negotiator that remembers what happened last cycle, then
-      uses that memory to change the next deal it makes.
+      Every year a startup renews the same software contracts. Grudge negotiates
+      those renewals, writes down how each vendor behaved, and uses it next year
+      to pay less.
     </p>
-    <div class="meta">
-      <span>Memory <b>Sibyl · load-bearing</b></span>
-      <span>Settlement <b>Base or Virtuals ACP</b></span>
-      <span>Mode <b>Live negotiation</b></span>
-    </div>
     <div class="home">
       <div class="home-panel">
-        <div class="home-kicker">What it does</div>
+        <div class="home-kicker">The test</div>
         <p class="home-copy">
-          It negotiates SaaS renewals twice: once blind, once with a vendor dossier
-          loaded from memory. The live page shows the actual transcript, the remembered
-          facts, and the price difference in real time.
+          Run the same renewal twice: once with the vendor's history, once with
+          the memory deleted. Two different prices, live, on screen.
         </p>
         <div class="home-actions">
-          <a class="home-cta primary" href="#live">Open live demo</a>
-          <a class="home-cta" href="#live">See the negotiation</a>
+          <a class="home-cta primary" href="#live">Run the demo</a>
         </div>
       </div>
       <div class="feature-grid">
         <div class="feature">
-          <h3>Memory</h3>
-          <p>Stores what moved each vendor, what failed, and whether their threats were bluff.</p>
+          <h3>It remembers</h3>
+          <p>Which arguments made this vendor drop the price, which ones they ignored, and whether "final offer" was a bluff.</p>
         </div>
         <div class="feature">
-          <h3>Negotiation</h3>
-          <p>Runs the same renewal with and without memory so the difference is visible, not implied.</p>
+          <h3>It gets cheaper</h3>
+          <p>Next renewal it leads with what worked, skips what failed, and calls the bluff.</p>
         </div>
         <div class="feature">
-          <h3>Settlement</h3>
-          <p>Hands the agreed deal to Base Sepolia USDC or Virtuals ACP once the price is fixed.</p>
+          <h3>It pays</h3>
+          <p>Once the price is agreed, the invoice settles in USDC on Base.</p>
         </div>
       </div>
     </div>
@@ -788,11 +782,11 @@
 
   <div class="page" id="livePage" hidden>
     <header class="masthead">
-      <div class="eyebrow">Renewal negotiation · live memory</div>
-      <h1>The same renewal, <em>twice</em>.<br>Once with a memory.</h1>
+      <div class="eyebrow">Live negotiation</div>
+      <h1>With memory <em>vs</em> without.</h1>
       <p class="standfirst">
-        Grudge negotiates a vendor, remembers what worked, and runs the same renewal
-        again with the dossier intact. The browser shows the actual turns as they happen.
+        Pick a vendor and press run. You will see both negotiations happen line by
+        line, and the two final prices.
       </p>
       <div class="meta">
         <span>List price <b id="listPriceMeta">-</b></span>
@@ -987,8 +981,8 @@ function escapeHtml(value) {
 function clearUi() {
   $("sessionOne").classList.add("active");
   $("sessionTwo").classList.remove("active");
-  $("sessionOneDetail").textContent = "Waiting to load prior vendor memory and write the next renewal to Sibyl.";
-  $("sessionTwoDetail").textContent = "After Session 1, the demo reopens Sibyl and reads every persisted negotiation for this vendor.";
+  $("sessionOneDetail").textContent = "Waiting to start.";
+  $("sessionTwoDetail").textContent = "Reopens the memory file and reads back everything saved about this vendor.";
   $("seedResult").textContent = "-";
   $("recallResult").textContent = "-";
   $("seedHeadPrice").textContent = "-";

@@ -29,7 +29,7 @@ function isTerminal(status) {
 async function main() {
   const input = JSON.parse(readFileSync(0, "utf8") || "{}");
   const { amount, memo = "" } = input;
-
+//ACP_WALLET_ADDRESS : BUYER AGENT 
   const {
     ACP_WALLET_ADDRESS,
     ACP_WALLET_ID,

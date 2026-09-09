@@ -72,11 +72,12 @@ def run_live_compare(handler: SimpleHTTPRequestHandler, query: dict[str, list[st
         prior_count = len(memory.past_negotiations(vendor_id))
         event(handler, "session", {
             "index": 1,
-            "label": "Session 1",
+            "label": "Session 1 — learn",
             "detail": (
-                f"Loaded {prior_count} prior remembered negotiation(s), then saving this renewal to Sibyl"
+                f"Read {prior_count} past negotiation(s) from memory. Negotiating now, "
+                f"then saving what happens."
                 if existing_dossier
-                else "First renewal with this vendor; writing the first Sibyl dossier"
+                else "Nothing in memory about this vendor yet. Negotiating blind, then saving what happens."
             ),
             "priorCount": prior_count,
         })
@@ -102,8 +103,9 @@ def run_live_compare(handler: SimpleHTTPRequestHandler, query: dict[str, list[st
         event(handler, "seed_result", {"settled": seed.settled_price, "rounds": seed.rounds_used})
         event(handler, "session", {
             "index": 2,
-            "label": "Session 2",
-            "detail": "Fresh process boundary: reopening Sibyl and recalling all persisted vendor history",
+            "label": "Session 2 — use it",
+            "detail": "Memory file closed and reopened, like coming back months later. "
+                      "Now reading the full history back from disk.",
         })
         memory.close()
         memory = GrudgeMemory(enabled=True)
