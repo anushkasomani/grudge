@@ -8,6 +8,13 @@ last time.
 agent negotiates naively and pays more. There is a command that proves it on
 screen, and a test suite that fails if it ever stops being true.
 
+### Viewing the web demo
+
+Live deployment:
+
+- Frontend: **https://grudge-omega.vercel.app**
+- Backend / full Railway app: **https://web-production-48087.up.railway.app**
+
 ```bash
 grudge compare --vendor datadog     # same renewal, run twice: memory vs no memory
 ```
