@@ -88,6 +88,17 @@ distinct agents rather than one model arguing with itself.
 
 ### Viewing the web demo
 
+Live deployment:
+
+- Frontend: **https://grudge-omega.vercel.app**
+- Backend / full Railway app: **https://web-production-48087.up.railway.app**
+
+The Vercel frontend serves the static UI and proxies `/api/*` to the Railway
+backend. Railway runs the Python negotiation server, stores Sibyl Memory on a
+mounted `/data` volume, and has the live API/payment environment variables.
+
+Local run:
+
 ```bash
 ./.venv/bin/python web/server.py       # then open http://127.0.0.1:8000
 ```

@@ -209,9 +209,10 @@ class Handler(SimpleHTTPRequestHandler):
 
 
 def main() -> None:
-    port = int(os.getenv("GRUDGE_WEB_PORT", "8000"))
-    server = ThreadingHTTPServer(("127.0.0.1", port), Handler)
-    print(f"grudge live demo running at http://127.0.0.1:{port}")
+    port = int(os.getenv("PORT") or os.getenv("GRUDGE_WEB_PORT", "8000"))
+    host = os.getenv("GRUDGE_WEB_HOST", "0.0.0.0")
+    server = ThreadingHTTPServer((host, port), Handler)
+    print(f"grudge live demo running at http://{host}:{port}")
     server.serve_forever()
 
 

@@ -1,0 +1,14 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "public",
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://web-production-48087.up.railway.app/api/:path*"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/web/:path*"
+    }
+  ]
+}

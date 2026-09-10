@@ -1,0 +1,28 @@
+{
+  "$schema": "https://schema.railpack.com",
+  "provider": "python",
+  "packages": {
+    "python": "3.11",
+    "node": "20"
+  },
+  "steps": {
+    "install": {
+      "inputs": [
+        "...",
+        {
+          "local": true,
+          "include": [
+            "acp_sidecar"
+          ]
+        }
+      ],
+      "commands": [
+        "...",
+        "cd acp_sidecar && npm ci"
+      ]
+    }
+  },
+  "deploy": {
+    "startCommand": "python web/server.py"
+  }
+}

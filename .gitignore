@@ -12,3 +12,5 @@ node_modules/
 
 # Demo output — regenerate locally with `compare --export`
 web/runs/
+.vercel
+public/

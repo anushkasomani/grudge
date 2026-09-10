@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "build": "mkdir -p public && cp web/index.html public/index.html"
+  }
+}

@@ -109,6 +109,11 @@ both, the buyer uses Anthropic and the vendor uses Groq.
 
 Open **http://127.0.0.1:8000** in your browser.
 
+The deployed demo is live here:
+
+- Frontend: **https://grudge-omega.vercel.app**
+- Backend / full Railway app: **https://web-production-48087.up.railway.app**
+
 Choose a vendor and press **Run Negotiation**. The page shows a two-session
 Sibyl memory proof:
 
@@ -117,10 +122,16 @@ Sibyl memory proof:
 2. The server closes and reopens Sibyl Memory, then Session 2 recalls the full
    vendor history and runs memory-wiped vs memory-intact negotiations live.
 
-Turn off **Offline** to use real LLM agents after adding an API key. Turn on
-**Settle** after adding Base or ACP credentials.
+The deployed page defaults to live LLM agents. Turn on **Offline fallback** only
+when you want the deterministic backup. Turn on **Settle** after adding Base or
+ACP credentials.
 
 Press `Ctrl+C` in the terminal to stop the web server.
+
+For the hosted deployment, Vercel serves the static frontend and proxies
+`/api/*` to Railway. Railway runs `web/server.py`, binds to `$PORT`, and stores
+Sibyl Memory at `/data/sibyl-memory/memory.db` on a Railway volume so the memory
+survives restarts.
 
 ---
 
