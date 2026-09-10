@@ -160,12 +160,15 @@ def _informed(
         # so memory makes the agent sharper without making it refuse good deals.
         anchor = round(floor * 0.88, 2)
         target = round(floor * 0.96, 2)
-        # Hold the line near last cycle's price, but keep enough headroom that a
-        # good deal is still reachable. Pinning the walk-away tightly to each new
-        # best price ratchets it down every cycle until the vendor physically
-        # cannot meet it and the agent walks away with nothing - which reads as
-        # memory FAILING, the opposite of the point.
-        walk = round(float(best_settled) * 1.06, 2) if best_settled else round(floor * 1.02, 2)
+        # The walk-away needs headroom so the agent does not ratchet itself into
+        # refusing every reachable deal - but it must never sit ABOVE what a
+        # naive cold-start agent would have accepted, or memory produces the
+        # worse price. Cap it at the cold-start ceiling.
+        cold_ceiling = list_price * COLD_WALK_PCT
+        if best_settled:
+            walk = round(min(float(best_settled) * 1.06, cold_ceiling, float(best_settled)), 2)
+        else:
+            walk = round(min(floor * 1.02, cold_ceiling), 2)
         rationale.append(
             f"Known floor ~${floor:,.0f} (confidence {confidence:.0%}); anchoring at "
             f"${anchor:,.0f} and probing below it - they accepted that number once, "
