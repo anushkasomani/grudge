@@ -12,8 +12,7 @@
         {
           "local": true,
           "include": [
-            "acp_sidecar/package.json",
-            "acp_sidecar/package-lock.json"
+            "acp_sidecar"
           ]
         }
       ],
