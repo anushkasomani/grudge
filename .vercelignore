@@ -1,0 +1,17 @@
+.env
+.venv
+.pytest_cache
+.sibyl-memory
+__pycache__
+*.pyc
+*.db
+*.db-shm
+*.db-wal
+acp_sidecar
+grudge
+memory_store
+requirements.txt
+tests
+web/server.py
+web/__pycache__
+web/runs
