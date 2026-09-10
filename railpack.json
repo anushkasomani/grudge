@@ -7,6 +7,16 @@
   },
   "steps": {
     "install": {
+      "inputs": [
+        "...",
+        {
+          "local": true,
+          "include": [
+            "acp_sidecar/package.json",
+            "acp_sidecar/package-lock.json"
+          ]
+        }
+      ],
       "commands": [
         "...",
         "cd acp_sidecar && npm ci"
